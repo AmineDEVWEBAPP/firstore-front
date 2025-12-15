@@ -1,0 +1,17 @@
+.text-field-icon {
+    font-size: 16px;
+}
+
+/* medium screens and up (tablet) */
+@media (min-width: 768px) {
+    .text-field-icon {
+        font-size: 18px;
+    }
+}
+
+/* large screens (desktop) */
+@media (min-width: 1024px) {
+    .text-field-icon {
+        font-size: 20px;
+    }
+} 

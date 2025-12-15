@@ -1,0 +1,15 @@
+.loader {
+  aspect-ratio: 1;
+  display: grid;
+  animation: l14 4s infinite;
+}
+.loader::before,
+.loader::after {    
+  animation: l14 1s infinite linear;
+}
+.loader::after {
+  animation-direction: reverse;
+}
+@keyframes l14{ 
+  100%{transform: rotate(1turn)}
+}

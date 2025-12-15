@@ -1,0 +1,35 @@
+@import 'tailwindcss';
+
+
+:root {
+    font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 600;
+
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    --primary-col: #007BFF;
+    --secondary-col: #FF6F00;
+    background-color: #f0f7ff;
+
+}
+
+.body-container{
+    max-width: 120rem;
+    margin:0 auto 0 auto;
+    overflow: hidden;
+}
+
+button{
+    cursor: pointer;
+}
+
+button:hover {
+    filter: brightness(95%);
+}
+
+button:active {
+    transform: scale(0.98)
+}
