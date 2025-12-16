@@ -1,6 +1,7 @@
 import { useActionState, useState } from "react"
 import TextField from "./components/textField/textField.jsx"
 import SubmitButton from "./components/submitButton/submitButton.jsx"
+import AdminServices from "../../../core/services/admin_services.js"
 
 export default function DashboardLogin() {
 
@@ -10,28 +11,12 @@ export default function DashboardLogin() {
     async function login(_, queryData) {
         const email = queryData.get('email')
         const password = queryData.get('password')
-        const url = '/api/v1/admin/login'
-        const options = {
-            'method': 'POST',
-            'headers': {
-                'Content-Type': 'application/json'
-            },
-            'body': JSON.stringify({
-                'email': email,
-                'password': password
-            })
-        }
-        try {
-            const res = await fetch(url, options)
-            if (!res.ok) return setisFailedLogin(true)
-            const data = await res.json()
-            if (data['status'] === 'success') {
-                localStorage.setItem('isLogin', 'true')
-                history.replaceState(_, _, '/dashboard/home')
-                location.reload()
-            }
-        } catch (e) {
-            console.error(e)
+        const res = await AdminServices.login(email, password)
+        if (res['status'] === 'success') {
+            localStorage.setItem('isLogin', 'true')
+            history.replaceState(_, _, '/dashboard/home')
+            location.reload()
+        } else {
             setisFailedLogin(true)
         }
     }
