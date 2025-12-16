@@ -2,6 +2,7 @@ import { useActionState, useState } from "react"
 import TextField from "./components/textField/textField.jsx"
 import SubmitButton from "./components/submitButton/submitButton.jsx"
 import AdminServices from "../../../core/services/admin_services.js"
+import { Helmet } from "react-helmet"
 
 export default function DashboardLogin() {
 
@@ -24,6 +25,9 @@ export default function DashboardLogin() {
 
     return (
         <div className='flex min-h-screen justify-center items-center px-4'>
+            <Helmet>
+                <title>admin login</title>
+            </Helmet>
             <div
                 className='p-6 sm:p-8 md:p-10 w-[92vw] sm:w-[76vw] md:w-[60vw] lg:w-[44vw] xl:w-[36vw] max-w-180 bg-white rounded-4xl flex flex-col items-center shadow-md md:shadow-lg hover:shadow-xl transition-shadow duration-200'>
                 <div

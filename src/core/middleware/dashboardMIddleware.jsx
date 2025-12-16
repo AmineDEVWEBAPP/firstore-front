@@ -1,6 +1,7 @@
 export default function DashboardMiddleware({ children }) {
     const isLogin = localStorage.getItem('isLogin')
     if (!isLogin) return toLogin()
+        console.log(document.getElementsByName('head'))
     return (<>{children}</>)
 }
 
