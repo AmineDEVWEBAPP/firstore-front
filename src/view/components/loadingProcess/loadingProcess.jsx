@@ -16,7 +16,7 @@ export default function LoadingProcess({ size = 50, borderSize = 8 }) {
           border: ${borderSize}px solid;
           border-radius: 50%;
           border-color: var(--secondary-col) var(--secondary-col) #0000 #0000;
-          mix-blend-mode: darken;
+          mix-blend-mode: normal;
         }
         .loader::after{
           border-color: #0000 #0000 var(--primary-col) var(--primary-col);

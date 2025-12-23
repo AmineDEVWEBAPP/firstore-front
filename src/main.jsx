@@ -4,14 +4,16 @@ import './view/index.css'
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
 import DashboardLogin from './view/dashboard/login/dashboardLogin.jsx'
 import DashboardHome from './view/dashboard/home/dashboardHome.jsx'
-import DashboardMiddleware from './core/middleware/dashboardMIddleware.jsx'
+import AdminLogged from './core/middleware/adminLogged.jsx'
 
 const routes = createBrowserRouter(
   createRoutesFromElements(
     <Route>
       <Route path='dashboard'>
-        <Route path='login' element={<DashboardLogin />} />
-        <Route element={<DashboardMiddleware />}>
+        <Route element={<AdminLogged page='login' />}>
+          <Route path='login' element={<DashboardLogin />} />
+        </Route>
+        <Route element={<AdminLogged />}>
           <Route path='home' element={<DashboardHome />} />
         </Route>
       </Route>

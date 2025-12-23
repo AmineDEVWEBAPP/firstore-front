@@ -1,5 +1,6 @@
 export default class Config {
-    env = import.meta.env['VITE_BASEURL']
-    baseurl = this.env
-    apiurl = `${this.baseurl}/api/v1`
+    static env = import.meta.env
+    static baseurl = Config.env['VITE_BASEURL']
+    static apiurl = `/api/v1`
 }
+

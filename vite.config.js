@@ -13,6 +13,7 @@ export default defineConfig({
         changeOrigin: true,
         secure: false
       }
-    }
+    },
+    allowedHosts:['unsonantal-ali-overcensorious.ngrok-free.dev']
   }
 })

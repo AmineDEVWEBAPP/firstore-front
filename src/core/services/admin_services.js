@@ -1,6 +1,10 @@
+import Config from "../config/config"
+
 export default class AdminServices {
+    static baseurl = `${Config.apiurl}/admin`
+
     static async login(email, password) {
-        const url = '/api/v1/admin/login'
+        const url = `${this.baseurl}/login`
         const options = {
             'method': 'POST',
             'headers': {
@@ -19,6 +23,21 @@ export default class AdminServices {
         } catch (e) {
             console.error(e)
             return { 'status': 'failed' }
+        }
+    }
+
+    static async logged() {
+        const url = `${this.baseurl}/logged`
+        const options = {
+            'method': 'POST'
+        }
+        try {
+            const res = await fetch(url, options)
+            if (!res.ok) return false
+            return true
+        } catch (e) {
+            console.error(e)
+            return false
         }
     }
 }
