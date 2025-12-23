@@ -41,6 +41,6 @@ function toLogin() {
 
 
 function toHome() {
-    history.replaceState(null, null, '/dashboard/home')
+    history.replaceState(null, null, '/dashboard')
     location.reload()
 }

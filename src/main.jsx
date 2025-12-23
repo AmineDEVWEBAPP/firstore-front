@@ -14,7 +14,7 @@ const routes = createBrowserRouter(
           <Route path='login' element={<DashboardLogin />} />
         </Route>
         <Route element={<AdminLogged />}>
-          <Route path='home' element={<DashboardHome />} />
+          <Route path='' element={<DashboardHome />} />
         </Route>
       </Route>
     </Route>

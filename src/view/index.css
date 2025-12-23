@@ -13,16 +13,17 @@
     --primary-col: #007BFF;
     --secondary-col: #FF6F00;
     background-color: #f0f7ff;
+    --bg-col: #f0f7ff;
 
 }
 
-.body-container{
+.body-container {
     max-width: 120rem;
-    margin:0 auto 0 auto;
+    margin: 0 auto 0 auto;
     overflow: hidden;
 }
 
-button{
+button {
     cursor: pointer;
 }
 

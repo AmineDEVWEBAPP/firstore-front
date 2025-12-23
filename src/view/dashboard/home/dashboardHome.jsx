@@ -1,5 +1,12 @@
+import Sidebare from "../components/sidebare/sidebare";
+
 export default function DashboardHome() {
-    return (<div
-    className="h-screen w-screen bg-amber-500"
-    >fasfsadfasd</div>)
+    return (<main
+        className='flex'>
+        <Sidebare/>
+        <div
+        className='w-full h-screen bg-(--bg-col)'>
+
+        </div>
+    </main>)
 }
