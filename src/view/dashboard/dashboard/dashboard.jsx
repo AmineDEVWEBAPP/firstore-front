@@ -5,6 +5,11 @@ export default function Dashboard() {
     return (<main
         className='flex'>
         <Sidebare/>
-       <Outlet/>
+    <div
+    className='body-container'>
+        <div className='overflow-y-scroll h-dvh p-10'>
+         <Outlet/>
+      </div>
+    </div>
     </main>)
 }

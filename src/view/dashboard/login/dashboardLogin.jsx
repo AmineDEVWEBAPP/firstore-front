@@ -3,19 +3,22 @@ import TextField from "./components/textField/textField.jsx"
 import SubmitButton from "./components/submitButton/submitButton.jsx"
 import AdminServices from "../../../core/services/admin_services.js"
 import { Helmet } from "react-helmet"
+import { useNavigate } from "react-router-dom"
 
 export default function DashboardLogin() {
+    const navigate = useNavigate()
 
     const [_, formAction, isPending] = useActionState(login, null)
     const [isFailedLogin, setisFailedLogin] = useState(false)
+    const [test, setTest] = useState(false)
 
     async function login(_, queryData) {
         const email = queryData.get('email')
         const password = queryData.get('password')
         const res = await AdminServices.login(email, password)
+        setTest(JSON.stringify(res))
         if (res['status'] === 'success') {
-            history.replaceState(_, _, '/dashboard/home')
-            location.reload()
+            navigate('/dashboard/home')
         } else {
             setisFailedLogin(true)
         }
@@ -29,6 +32,9 @@ export default function DashboardLogin() {
             </Helmet>
             <div
                 className='p-6 sm:p-8 md:p-10 w-[92vw] sm:w-[76vw] md:w-[60vw] lg:w-[44vw] xl:w-[36vw] max-w-180 bg-white rounded-4xl flex flex-col items-center shadow-md md:shadow-lg hover:shadow-xl transition-shadow duration-200'>
+                <div>
+                    {test}
+                </div>
                 <div
                     className='rounded-full flex justify-center items-center bg-orange-200 p-3'>
                     <span className="material-symbols-outlined text-(--secondary-col)">lock</span>
