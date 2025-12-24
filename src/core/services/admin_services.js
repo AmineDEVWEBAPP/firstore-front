@@ -40,4 +40,19 @@ export default class AdminServices {
             return false
         }
     }
+
+    static async get() {
+        const options = {
+            'method': 'GET'
+        }
+        try {
+            const res = await fetch(this.baseurl, options)
+            if (!res.ok) return { 'status': 'failed' }
+            const data = await res.json()
+            return data
+        } catch (err) {
+            console.error(err)
+            return { 'status': 'failed' }
+        }
+    }
 }

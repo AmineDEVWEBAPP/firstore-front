@@ -1,20 +1,17 @@
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { useLoaderData, useNavigate, useOutletContext } from "react-router-dom";
 import ActionCard from "./components/actionCard/actionCard";
 import NewsCard from "./components/newsCard/newsCard";
 
 export default function DashboardHome() {
     const navigate = useNavigate()
-    const data = useLoaderData()
-    const losingUsers = data['losingUsers']
-    const users = data['users']
-    const notUsedProfiles = data['notUsedProfiles']
-    const accounts = data['accounts']
+    const { losingUsers, users, notUsedProfiles, accounts } = useLoaderData()
+    const { admin } = useOutletContext()
     return (<div
         className='flex flex-col'>
         <header>
             <b
                 className='text-2xl'>
-                Welcome back, Amine
+                Welcome back, {admin.name}
             </b>
             <p
                 className='text-gray-500'>

@@ -1,29 +1,26 @@
-import { NavLink } from "react-router-dom"
+import { NavLink, useLoaderData } from "react-router-dom"
 
 export default function Sidebare() {
-
+    const { admin } = useLoaderData()
     return (
         <div
             className='h-screen w-85 bg-white p-4 relative shadow'>
             {/* top header */}
             <div
                 className='flex items-center gap-x-4 mb-13'>
-                <div
-                    className='bg-blue-200 w-15 h-15 rounded-full flex items-center justify-center'>
-                    <span
-                        style={{ 'font-size': '40px' }}
-                        className="material-symbols-outlined text-(--primary-col)">
-                        person
-                    </span>
-                </div>
+                <span
+                    style={{ 'font-size': '40px' }}
+                    className="material-symbols-outlined bg-blue-200  rounded-full p-2 text-(--primary-col)">
+                    person
+                </span>
                 <div>
                     <b
                         className="text-xl">
-                        Amine
+                        {admin.name}
                     </b>
                     <p
-                        className='text-sm text-gray-400'>
-                        Supper Admin
+                        className='text-[11px] text-gray-400'>
+                        {admin.email}
                     </p>
                 </div>
             </div>
@@ -32,7 +29,7 @@ export default function Sidebare() {
                 className='gap-y-3 flex flex-col'>
                 <NavButton icon='dashboard' name='Dashboard' page='home' />
                 <p
-                className='text-[#5f768d] text-sm ml-2 my-2 mt-4'
+                    className='text-[#5f768d] text-sm ml-2 my-2 mt-4'
                 >MANAGEMENT</p>
                 <NavButton icon='sell' name='Offers' page='offers' />
                 <NavButton icon='account_balance' name='Accounts' page='accounts' />
@@ -40,7 +37,7 @@ export default function Sidebare() {
                 <NavButton icon='group' name='Users' page='users' />
             </div>
             {/* logout button */}
-            <LogoutButton/>
+            <LogoutButton />
         </div>
     )
 }
