@@ -14,7 +14,7 @@ export default function DashboardLogin() {
         const password = queryData.get('password')
         const res = await AdminServices.login(email, password)
         if (res['status'] === 'success') {
-            history.replaceState(_, _, '/dashboard')
+            history.replaceState(_, _, '/dashboard/home')
             location.reload()
         } else {
             setisFailedLogin(true)
