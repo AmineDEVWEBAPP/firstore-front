@@ -9,7 +9,7 @@ export default function ActionCard({ text, onClick }) {
                         'fontSize': '40px'
                     }}
                     className={`material-symbols-outlined ${getBgCol(text)} rounded-full p-3 ${getTextCol(text)}`}>
-                    {getIcon(text)}
+                    add_circle
                 </span>
             </button>
             {text}
@@ -17,17 +17,8 @@ export default function ActionCard({ text, onClick }) {
     )
 }
 
-function getIcon(type) {
+function getTextCol(type) {
     switch (type) {
-        case 'New Offer': return 'add_circle'
-        case 'New User': return 'add_circle'
-        case 'New Account': return 'add_circle'
-        case 'Update Profile': return 'update'
-    }
-}
-
-function getTextCol(type){
-      switch (type) {
         case 'New Offer': return 'text-(--primary-col)'
         case 'New User': return 'text-(--secondary-col)'
         case 'New Account': return 'text-violet-500'
@@ -35,8 +26,8 @@ function getTextCol(type){
     }
 }
 
-function getBgCol(type){
-      switch (type) {
+function getBgCol(type) {
+    switch (type) {
         case 'New Offer': return 'bg-blue-100'
         case 'New User': return 'bg-orange-100'
         case 'New Account': return 'bg-violet-100'

@@ -1,6 +1,20 @@
 import { useLoaderData, useNavigate, useOutletContext } from "react-router-dom";
 import ActionCard from "./components/actionCard/actionCard";
 import NewsCard from "./components/newsCard/newsCard";
+import UserServices from '../../../core/services/user_services'
+import ProfileServices from '../../../core/services/profile_services'
+import AccountServices from '../../../core/services/account_services'
+
+// eslint-disable-next-line react-refresh/only-export-components
+export async function dashboardHomeinit() {
+        let [users, profiles, accounts] = await Promise.all([UserServices.getUsers(), ProfileServices.getProfiles(), AccountServices.getAccounts()])
+        const losingUsers = users.filter(user => {
+            const lastPay = new Date(user.last_pay_time)
+            return lastPay.getTime() > new Date().getTime()
+        })
+        const notUsedProfiles = profiles.filter(profile => profile.used !== 0)
+        return { users, losingUsers, notUsedProfiles, accounts }
+    }
 
 export default function DashboardHome() {
     const navigate = useNavigate()
@@ -32,11 +46,11 @@ export default function DashboardHome() {
                 Quick Actions
             </b>
             <div
-                className='bg-white rounded-2xl mt-3 p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8'>
+                className='bg-white border border-[#f0f2f5] rounded-2xl mt-3 p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8'>
                 <ActionCard text='New Offer' onClick={() => navigate('/dashboard/offers/create')} />
                 <ActionCard text='New User' onClick={() => navigate('/dashboard/users/create')} />
                 <ActionCard text='New Account' onClick={() => navigate('/dashboard/accounts/create')} />
-                <ActionCard text='Update Profile' onClick={() => navigate('/dashboard/profiles/edit')} />
+                <ActionCard text='Update Profile' onClick={() => navigate('/dashboard/profiles/create')} />
             </div>
         </section>
     </div>)

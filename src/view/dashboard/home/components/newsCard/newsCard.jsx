@@ -1,6 +1,6 @@
 export default function NewsCard({ type, count, onClick }) {
     return (<div
-        className={`bg-white rounded-2xl shadow ${getShadowCol(type)} p-6  hover:shadow-xl transition-shadow duration-150`}>
+        className={`bg-white border border-[#f0f2f5] rounded-2xl shadow ${getShadowCol(type)} p-6  hover:shadow-xl transition-shadow duration-150`}>
         {/* header */}
         <div
             className='flex justify-between'>

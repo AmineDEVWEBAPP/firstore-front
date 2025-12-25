@@ -1,9 +1,9 @@
 import { redirect } from "react-router-dom"
 import AdminServices from "../services/admin_services"
-import DashboardController from "../../controller/dashboard"
+import { dashboardInit } from "../../view/dashboard/dashboard/dashboard.jsx"
 
 export default async function adminLogged() {
     const logged = await AdminServices.logged()
     if (!logged) throw redirect('/dashboard/login')
-    return  await DashboardController.init()
+    return await dashboardInit()
 }

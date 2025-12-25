@@ -1,5 +1,12 @@
 import { Outlet, useLoaderData } from "react-router-dom";
 import Sidebare from "./components/sidebare/sidebare";
+import AdminServices from "../../../core/services/admin_services";
+
+// eslint-disable-next-line react-refresh/only-export-components
+export async function dashboardInit() {
+    const [admin] = await Promise.all([AdminServices.get()])
+    return { admin }
+}
 
 export default function Dashboard() {
     const { admin } = useLoaderData()
