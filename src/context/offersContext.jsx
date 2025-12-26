@@ -9,7 +9,7 @@ export default function OffersProvider({ children }) {
     const [offers, setOffers] = useState(init)
 
     const bestSeller = useMemo(() => {
-        if(offers.length===0)return []
+        if (offers.length === 0) return []
         return offers.reduce((best, current) =>
             current.used_profiles_count > best.used_profiles_count
                 ? current
@@ -27,9 +27,9 @@ export default function OffersProvider({ children }) {
         [offers]
     );
     return (
-        <OffersContext.Provider
+        <OffersContext
             value={{ offers, setOffers, bestSeller, offersWithAudio, offerWith4k }}
         >{children}
-        </OffersContext.Provider>
+        </OffersContext>
     )
 }

@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom"
 import { useContext, useState } from "react"
-import Dialog from '../../../components/dialog/dialog'
-import OfferServices from "../../../../core/services/offer_services"
-import LoadingProcess from '../../../components/loadingProcess/loadingProcess'
-import { OffersContext } from "../../../../context/offersContext"
+import Dialog from '../../../../components/dialog/dialog'
+import OfferServices from "../../../../../core/services/offer_services"
+import LoadingProcess from '../../../../components/loadingProcess/loadingProcess'
+import { OffersContext } from "../../../../../context/offersContext"
 
 export default function OfferTable() {
     const { offers, setOffers } = useContext(OffersContext)
@@ -44,8 +44,14 @@ export default function OfferTable() {
                     key={offer.id}
                     className='[&>td]:px-8'>
                     <td className='font-bold'>{offer.name}</td>
-                    <td className='font-bold'>DH{offer.price}</td>
-                    <td>{offer.quality}</td>
+                    <td className='font-bold'>{offer.price} {offer.price_currency}</td>
+                    <td className='flex pt-4.5'><p
+                        className='px-4 rounded-full'
+                        style={{
+                            'color': getQualityCol(offer.quality),
+                            'backgroundColor': `${getQualityCol(offer.quality)}30`
+                        }}
+                    >{offer.quality}</p></td>
                     <td className="text-[#5f758d]"
                     >{offer.resulotion}</td>
                     <td className='px-20!'>
@@ -71,6 +77,15 @@ export default function OfferTable() {
         {resStatus ? <Dialog icon={resStatus === 'success' ? 'check' : 'close'} iconColor={resStatus === 'success' ? '#2abc75' : '#dc2727'} /> : null}
     </>
     )
+}
+
+function getQualityCol(quality) {
+    switch (quality) {
+        case 'Good': return '#000000'
+        case 'Great': return '#0085dd'
+        case 'Best': return '#8500dd'
+        default: return '#dd8500'
+    }
 }
 
 function ActionButton({ icon, onClick, className }) {

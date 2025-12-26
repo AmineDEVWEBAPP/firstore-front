@@ -1,9 +1,10 @@
-import NewsCard from "./newsCard/newsCard";
-import OfferTable from "./offerTable/offerTable";
-import SearchInput from "./searchInput/searchInput";
+import NewsCard from "./components/newsCard/newsCard";
+import OfferTable from "./components/offerTable/offerTable";
+import SearchInput from "./components/searchInput/searchInput";
 import OfferServices from "../../../core/services/offer_services";
 import OffersProvider, { OffersContext } from "../../../context/offersContext";
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export async function offersInit() {
@@ -14,6 +15,7 @@ export async function offersInit() {
 }
 
 export default function Offers() {
+    const navigate = useNavigate()
     return (<>
         <header
             className='flex justify-between items-end'>
@@ -28,6 +30,7 @@ export default function Offers() {
                 </p>
             </div>
             <button
+                onClick={() => navigate('create')}
                 className='text-white bg-(--primary-col) font-bold flex items-center rounded-lg h-10 px-3'>
                 <span className="material-symbols-outlined">
                     add
