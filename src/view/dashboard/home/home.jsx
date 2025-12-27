@@ -24,11 +24,11 @@ export default function DashboardHome() {
         className='flex flex-col'>
         <header>
             <b
-                className='text-2xl'>
+                className='text-3xl tracking-tight text-[#101418]'>
                 Welcome back, {admin.name}
             </b>
             <p
-                className='text-gray-500'>
+                 className='mt-1 text-[#5e758d]'>
                 Here's what's happening with your platform.
             </p>
         </header>
