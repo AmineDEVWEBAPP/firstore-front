@@ -1,3 +1,5 @@
+import OfferForm from "../components/offerForm/offerForm";
+
 export default function CreateOffer() {
     return (<>
         <div>
@@ -12,7 +14,7 @@ export default function CreateOffer() {
         </div>
         <div
             className='mt-10'>
-
+            <OfferForm />
         </div>
     </>)
 }

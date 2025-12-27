@@ -53,7 +53,7 @@ export default function OfferTable() {
                         }}
                     >{offer.quality}</p></td>
                     <td className="text-[#5f758d]"
-                    >{offer.resulotion}</td>
+                    >{offer.resolution}</td>
                     <td className='px-20!'>
                         {getVerification(offer.have_spatial_audio === 1)}
                     </td>

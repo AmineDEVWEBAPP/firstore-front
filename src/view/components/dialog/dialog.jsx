@@ -5,7 +5,7 @@ export default function Dialog({ icon, iconColor, title, content, cancelText, co
             className='w-screen bg-[rgb(0,0,0,0.5)] backdrop-blur-xs h-screen fixed bottom-0 right-0 z-1 flex items-center justify-center'>
             <div
                 onClick={(e) => e.stopPropagation()}
-                className='p-6 max-w-100 bg-[#f0f7ff] rounded-xl flex flex-col items-center'>
+                className='p-6 max-w-100 bg-[#f0f7ff] rounded-xl flex flex-col items-center min-w-80'>
                 <span
                     className={`material-symbols-outlined p-4 rounded-full`}
                     style={{
@@ -22,15 +22,15 @@ export default function Dialog({ icon, iconColor, title, content, cancelText, co
                     {content}
                 </p> : null}
                 {cancelText || confirmText ? <div
-                    className='justify-between w-full grid grid-cols-2 gap-5 mt-7'>
-                    {cancelText ? <button
+                    className='justify-between w-full items-center flex gap-5 mt-7'>
+                    {cancelText ? <button type='button'
                         onClick={onCancel}
-                        className='border-2 border-(--primary-col) bg-white text-(--primary-col) flex items-center justify-center py-2 rounded-xl font-bold'>
+                        className='border-2 border-(--primary-col) bg-white w-full text-(--primary-col) flex items-center justify-center py-2 rounded-xl font-bold px-5'>
                         {cancelText}
                     </button> : null}
-                    {confirmText ? <button
+                    {confirmText ? <button type='button'
                         onClick={onConfirm}
-                        className={`${confirmColor} text-white flex items-center justify-center py-2 rounded-xl font-bold`}>
+                        className={`${confirmColor} text-white flex items-center w-full justify-center py-2 rounded-xl font-bold px-5`}>
                         {confirmText}
                     </button> : null}
                 </div> : null}

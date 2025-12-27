@@ -1,9 +1,9 @@
 import './style.css'
 
-export default function LoadingProcess({ size = 50, borderSize = 8 }) {
+export default function LoadingProcess({ size = 50, borderSize = 8,className }) {
     return (<>
         <span
-            className='loader'
+            className={`loader ${className}`}
             style={{
                 width: `${size}px`
             }}
