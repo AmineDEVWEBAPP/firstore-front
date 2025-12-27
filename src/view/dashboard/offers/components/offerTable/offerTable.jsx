@@ -20,6 +20,7 @@ export default function OfferTable() {
         setDeleteDialog(false)
         setResStatus(res.status)
         setTimeout(() => setResStatus(null), 1000)
+        if (res.status === 'failed') return
         setOffers(offers => offers.filter(offer => offer.id !== selectedOffer))
     }
 

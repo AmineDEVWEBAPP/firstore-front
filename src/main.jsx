@@ -6,7 +6,7 @@ import DashboardLogin from './view/dashboard/login/dashboardLogin.jsx'
 import Dashboard from './view/dashboard/dashboard/dashboard.jsx'
 import DashboardHome, { dashboardHomeinit } from './view/dashboard/home/home.jsx'
 import Offers, { offersInit } from './view/dashboard/offers/offers.jsx'
-import Accounts from './view/dashboard/accounts/accounts.jsx'
+import Accounts, { initAccounts } from './view/dashboard/accounts/accounts.jsx'
 import Profiles from './view/dashboard/profiles/profiles.jsx'
 import Users from './view/dashboard/users/users.jsx'
 import adminAuth from './core/middleware/adminAuth.jsx'
@@ -14,9 +14,9 @@ import adminLogged from './core/middleware/adminLogged.jsx'
 import CreateOffer from './view/dashboard/offers/createOffer/createOffer.jsx'
 import CreateUser from './view/dashboard/createUser/createUser.jsx'
 import CreateProfile from './view/dashboard/createProfile/createProfile.jsx'
-import CreateAccount from './view/dashboard/createAccount/createAccount.jsx'
 import EditProfile from './view/dashboard/editProfile/editProfile.jsx'
 import EditOffer, { initEditOffer } from './view/dashboard/offers/editOffer/editOffer.jsx'
+import EditAccount from './view/dashboard/accounts/editAccount/editAccount.jsx'
 
 const routes = createBrowserRouter(
   createRoutesFromElements(
@@ -28,9 +28,9 @@ const routes = createBrowserRouter(
           <Route path='home' element={<DashboardHome />} loader={dashboardHomeinit} />
           <Route path='offers' element={<Offers />} loader={offersInit} />
           <Route path='offers/create' element={<CreateOffer />} />
-          <Route path='offers/:id/edit' element={<EditOffer />} loader={initEditOffer}/>
-          <Route path='accounts' element={<Accounts />} />
-          <Route path='accounts/create' element={<CreateAccount />} />
+          <Route path='offers/:id/edit' element={<EditOffer />} loader={initEditOffer} />
+          <Route path='accounts' element={<Accounts />} loader={initAccounts} />
+          <Route path='accounts/:id/edit' element={<EditAccount />} />
           <Route path='profiles' element={<Profiles />} />
           <Route path='profiles/create' element={<CreateProfile />} />
           <Route path='profiles/:id/edit' element={<EditProfile />} />

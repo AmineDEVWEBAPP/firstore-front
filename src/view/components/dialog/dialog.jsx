@@ -1,8 +1,8 @@
-export default function Dialog({ icon, iconColor, title, content, cancelText, confirmText, confirmColor, onCancel, onConfirm }) {
+export default function Dialog({ icon, iconColor, title, content, cancelText, confirmText, confirmColor, onCancel, onConfirm, show }) {
     return (
         <div
             onClick={onCancel}
-            className='w-screen bg-[rgb(0,0,0,0.5)] backdrop-blur-xs h-screen fixed bottom-0 right-0 z-1 flex items-center justify-center'>
+            className={`${show ? 'flex' : 'hidden'} w-screen bg-[rgb(0,0,0,0.5)] backdrop-blur-xs h-screen fixed bottom-0 right-0 z-1 items-center justify-center`}>
             <div
                 onClick={(e) => e.stopPropagation()}
                 className='p-6 max-w-100 bg-[#f0f7ff] rounded-xl flex flex-col items-center min-w-80'>
