@@ -51,4 +51,23 @@ export default class AccountServices {
             return { 'status': 'failed' }
         }
     }
+
+    static async update(id, payload) {
+        const url = `${this.baseUrl}/${id}`
+        const options = {
+            'method': 'PATCH',
+            'headers': {
+                'Content-Type': 'application/json'
+            },
+            'body': JSON.stringify(payload)
+        }
+        try {
+            const res = await fetch(url, options)
+            if (!res.ok) return { 'status': 'failed' }
+            return { 'status': 'success'}
+        } catch (e) {
+            console.error(e)
+            return { 'status': 'failed' }
+        }
+    }
 }

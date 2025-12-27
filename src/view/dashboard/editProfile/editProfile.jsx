@@ -1,3 +1,3 @@
-export default function EditProfile(){
-    return (<p>Edit Profile</p>)
+export default function EditProfile() {
+    return (<>Edit Profile</>)
 }

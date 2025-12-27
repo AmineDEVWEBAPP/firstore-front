@@ -16,7 +16,6 @@ import CreateUser from './view/dashboard/createUser/createUser.jsx'
 import CreateProfile from './view/dashboard/createProfile/createProfile.jsx'
 import EditProfile from './view/dashboard/editProfile/editProfile.jsx'
 import EditOffer, { initEditOffer } from './view/dashboard/offers/editOffer/editOffer.jsx'
-import EditAccount from './view/dashboard/accounts/editAccount/editAccount.jsx'
 
 const routes = createBrowserRouter(
   createRoutesFromElements(
@@ -30,7 +29,6 @@ const routes = createBrowserRouter(
           <Route path='offers/create' element={<CreateOffer />} />
           <Route path='offers/:id/edit' element={<EditOffer />} loader={initEditOffer} />
           <Route path='accounts' element={<Accounts />} loader={initAccounts} />
-          <Route path='accounts/:id/edit' element={<EditAccount />} />
           <Route path='profiles' element={<Profiles />} />
           <Route path='profiles/create' element={<CreateProfile />} />
           <Route path='profiles/:id/edit' element={<EditProfile />} />

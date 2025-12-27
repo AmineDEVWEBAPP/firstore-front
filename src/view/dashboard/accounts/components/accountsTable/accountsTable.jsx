@@ -4,6 +4,7 @@ import Dialog from '../../../../components/dialog/dialog'
 import LoadingProcess from '../../../../components/loadingProcess/loadingProcess'
 import AccountServices from "../../../../../core/services/account_services"
 import { AccountsContext } from "../../../../../context/accountsContext"
+import EditAccountDialog from "../editAccountDialog/editAccountDialog"
 
 export default function AccountsTable() {
     const { accounts, setAccounts } = useContext(AccountsContext)
@@ -12,6 +13,7 @@ export default function AccountsTable() {
     const [selectedAccount, setSelectedAccount] = useState()
     const [loading, setLoadin] = useState(false)
     const [resStatus, setResStatus] = useState(null)
+    const [editDialog, setEditDialog] = useState(false)
 
     async function deleteAccount() {
         setLoadin(true)
@@ -52,11 +54,14 @@ export default function AccountsTable() {
                     <td className='text-right'>
                         <ActionButton icon='edit'
                             className='mr-2 text-(--primary-col)'
-                            onClick={() => navigate(`${account.id}/edit`)} />
+                            onClick={() => {
+                                setSelectedAccount(account.id)
+                                setEditDialog(true)
+                            }} />
                         <ActionButton icon='delete' className='text-(--secondary-col)'
                             onClick={() => {
-                                setDeleteDialog(true)
                                 setSelectedAccount(account.id)
+                                setDeleteDialog(true)
                             }} />
                     </td>
                 </tr>))}
@@ -71,6 +76,7 @@ export default function AccountsTable() {
             onConfirm={() => deleteAccount()} />
         <Dialog icon={resStatus === 'success' ? 'check' : 'close'} show={resStatus}
             iconColor={resStatus === 'success' ? '#2abc75' : '#dc2727'} />
+        {editDialog ? <EditAccountDialog onCancel={() => setEditDialog(false)} id={selectedAccount} /> : null}
     </>
     )
 }
