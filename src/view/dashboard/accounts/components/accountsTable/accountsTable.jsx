@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom"
 import { useContext, useState } from "react"
 import Dialog from '../../../../components/dialog/dialog'
 import LoadingProcess from '../../../../components/loadingProcess/loadingProcess'
@@ -8,7 +7,6 @@ import EditAccountDialog from "../editAccountDialog/editAccountDialog"
 
 export default function AccountsTable() {
     const { accounts, setAccounts } = useContext(AccountsContext)
-    const navigate = useNavigate()
     const [deleteDialog, setDeleteDialog] = useState(false)
     const [selectedAccount, setSelectedAccount] = useState()
     const [loading, setLoadin] = useState(false)

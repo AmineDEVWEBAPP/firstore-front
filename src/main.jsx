@@ -7,14 +7,12 @@ import Dashboard from './view/dashboard/dashboard/dashboard.jsx'
 import DashboardHome, { dashboardHomeinit } from './view/dashboard/home/home.jsx'
 import Offers, { offersInit } from './view/dashboard/offers/offers.jsx'
 import Accounts, { initAccounts } from './view/dashboard/accounts/accounts.jsx'
-import Profiles from './view/dashboard/profiles/profiles.jsx'
+import Profiles, { initProfiles } from './view/dashboard/profiles/profiles.jsx'
 import Users from './view/dashboard/users/users.jsx'
 import adminAuth from './core/middleware/adminAuth.jsx'
 import adminLogged from './core/middleware/adminLogged.jsx'
 import CreateOffer from './view/dashboard/offers/createOffer/createOffer.jsx'
 import CreateUser from './view/dashboard/createUser/createUser.jsx'
-import CreateProfile from './view/dashboard/createProfile/createProfile.jsx'
-import EditProfile from './view/dashboard/editProfile/editProfile.jsx'
 import EditOffer, { initEditOffer } from './view/dashboard/offers/editOffer/editOffer.jsx'
 
 const routes = createBrowserRouter(
@@ -29,9 +27,7 @@ const routes = createBrowserRouter(
           <Route path='offers/create' element={<CreateOffer />} />
           <Route path='offers/:id/edit' element={<EditOffer />} loader={initEditOffer} />
           <Route path='accounts' element={<Accounts />} loader={initAccounts} />
-          <Route path='profiles' element={<Profiles />} />
-          <Route path='profiles/create' element={<CreateProfile />} />
-          <Route path='profiles/:id/edit' element={<EditProfile />} />
+          <Route path='profiles' element={<Profiles />} loader={initProfiles}/>
           <Route path='users' element={<Users />} />
           <Route path='users/create' element={<CreateUser />} />
         </Route>
