@@ -1,23 +1,25 @@
 import { useActionState, useContext, useState } from "react"
 import LoadingProcess from "../../../../components/loadingProcess/loadingProcess"
 import Dialog from "../../../../components/dialog/dialog"
-import SwitchInput from '../../../../components/switchInput/switchInput'
 import { ProfilesContext } from "../../../../../context/profilesContext"
 import ProfileServices from "../../../../../core/services/profile_services"
+import { useLoaderData } from "react-router-dom"
 
-export default function EditProfileDialog({ onCancel, id }) {
-    const { profiles, setProfiles } = useContext(ProfilesContext)
-    let [targetProfile, setTargetProfile] = useState(profiles.filter(profile => profile.id === id)[0])
-    const [message, formAction, isPending] = useActionState(update)
+export default function CreateProfileDialog({ onCancel, show }) {
+    const { accounts } = useLoaderData()
+    const { setProfiles } = useContext(ProfilesContext)
+    const [message, formAction, isPending] = useActionState(create)
     const [statusDialog, setStatusDialog] = useState(false)
 
-    async function update(_, data) {
+    async function create(_, data) {
         const name = data.get('Profile Name')
         const pinCode = parseInt(data.get('PIN Code'))
         const paymentUrl = data.get('Payment Url')
         const used = data.get('used') === null ? false : data.get('used') === 'on' ? true : false
-        const payload = { name, pinCode, used, paymentUrl }
-        const res = await ProfileServices.update(id, payload)
+        const accountId = parseInt(data.get('Assign Account'))
+        const payload = { name, pinCode, used, paymentUrl, accountId }
+        console.log(payload)
+        const res = await ProfileServices.create(payload)
         setStatusDialog(true)
         if (res.status === 'success') {
             const newProfiles = await ProfileServices.getProfiles()
@@ -30,7 +32,7 @@ export default function EditProfileDialog({ onCancel, id }) {
     return (
         <div
             onClick={onCancel}
-            className='flex w-screen bg-[rgb(0,0,0,0.5)] backdrop-blur-xs h-screen fixed bottom-0 right-0 z-1 items-center justify-center'>
+            className={`${show ? 'flex' : 'hidden'} w-screen bg-[rgb(0,0,0,0.5)] backdrop-blur-xs h-screen fixed bottom-0 right-0 z-1 items-center justify-center`}>
             <div onClick={(e) => e.stopPropagation()}
                 className='bg-[#f0f7ff] rounded-xl w-140'>
                 <form action={formAction}
@@ -42,17 +44,14 @@ export default function EditProfileDialog({ onCancel, id }) {
                         <p className='text-[#5e758d]'>
                             Update existing credentials and operational status.
                         </p>
-                        <TextField label='Profile Name' value={targetProfile.name}
-                            onChange={(e) => setTargetProfile(prev => ({ ...prev, 'name': e.target.value }))}
+                        <TextField label='Profile Name'
                             placeholder='profile name' className='mt-6' />
-                        <TextField label='PIN Code' type='number' value={targetProfile.pin_code}
-                            onChange={(e) => setTargetProfile(prev => ({ ...prev, 'pin_code': e.target.value }))}
+                        <TextField label='PIN Code' type='number'
                             placeholder='pin code' className='mt-3' />
-                        <TextField label='Payment Url' value={targetProfile.payment_url} type='url'
-                            onChange={(e) => setTargetProfile(prev => ({ ...prev, 'payment_url': e.target.value }))}
+                        <TextField label='Payment Url' type='url'
                             placeholder='Payment Url' className='mt-3' />
-                        <SwitchField checked={targetProfile.used === 1 || targetProfile.used} name='used'
-                            onChange={(e) => setTargetProfile(prev => ({ ...prev, 'used': e.target.checked }))} />
+                        <TextField label='Assign Account' options={accounts}
+                            className='mt-3' />
                     </div>
                     <hr className='border-[#dfdfdf]' />
                     <div
@@ -93,26 +92,11 @@ function TextField({ label, placeholder, options, value, onChange, className, ty
         <label>
             <b>{label}</b>
         </label>
-        <select name={label} select={'mn'} onChange={onChange} defaultValue={value}
+        <select name={label}
             className='border-2 border-[#e4e4e4] bg-white rounded-xl p-3 mt-2'>
             {options.map(option => <option key={option.id} value={option.id}>
-                {option.name}
+                {option.email}
             </option>)}
         </select>
     </div>)
-}
-
-function SwitchField({ checked, onChange, name }) {
-    return (
-        <div
-            className='p-3 bg-white flex border-2 border-[#e4e4e4] rounded-xl items-center justify-between mt-6'>
-            <div>
-                Currently in use
-                <p className='text-xs text-[#5e758d]'>
-                    make if this profile used.
-                </p>
-            </div>
-            <SwitchInput name={name} checked={checked} onChange={onChange} />
-        </div>
-    )
 }

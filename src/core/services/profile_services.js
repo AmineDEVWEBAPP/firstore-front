@@ -35,4 +35,22 @@ export default class ProfileServices {
             return { 'status': 'failed' }
         }
     }
+
+    static async create(payload) {
+        const options = {
+            'method': 'POST',
+            'headers': {
+                'Content-Type': 'application/json'
+            },
+            'body': JSON.stringify(payload)
+        }
+        try {
+            const res = await fetch(this.baseUrl, options)
+            if (!res.ok) return { 'status': 'failed' }
+            return { 'status': 'success' }
+        } catch (err) {
+            console.error(err)
+            return { 'status': 'failed' }
+        }
+    }
 }
