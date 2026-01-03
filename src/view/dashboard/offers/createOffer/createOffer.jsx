@@ -1,7 +1,7 @@
 import OfferForm from "../components/offerForm/offerForm";
 
 export default function CreateOffer() {
-    return (<>
+    return (<div className='p-10'>
         <div>
             <b
                 className='text-3xl tracking-tight text-[#101418]'>
@@ -16,5 +16,5 @@ export default function CreateOffer() {
             className='mt-10'>
             <OfferForm />
         </div>
-    </>)
+    </div>)
 }

@@ -12,7 +12,7 @@ export async function initEditOffer({ params }) {
 export default function EditOffer() {
     const { offer, id } = useLoaderData()
 
-    return (<>
+    return (<div className='p-10'>
         <div>
             <b
                 className='text-3xl tracking-tight text-[#101418]'>
@@ -27,5 +27,5 @@ export default function EditOffer() {
             className='mt-10'>
             <OfferForm initOffer={offer} />
         </div>
-    </>)
+    </div>)
 }

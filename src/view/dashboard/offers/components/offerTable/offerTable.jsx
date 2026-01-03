@@ -69,13 +69,13 @@ export default function OfferTable() {
                 </tr>))}
             </tbody>
         </table>
-        {deleteDialog ? <Dialog icon='warning' iconColor='#dc2727' title='Delete Offer' confirmColor='bg-red-700'
+        {deleteDialog ? <Dialog icon='warning' iconColor='#dc2727' title='Delete Offer' confirmColor='bg-red-700' show={true}
             cancelText='Cancel' confirmText={loading ? (<LoadingProcess size={20} borderSize={4} />) : 'Confirm Delete'}
             content='Are you sure you want to delete this offer? This action cannot be undone.'
             onCancel={() => setDeleteDialog(false)}
             onConfirm={() => deleteOffer()}
         /> : null}
-        {resStatus ? <Dialog icon={resStatus === 'success' ? 'check' : 'close'} iconColor={resStatus === 'success' ? '#2abc75' : '#dc2727'} /> : null}
+        <Dialog icon={resStatus === 'success' ? 'check' : 'close'} iconColor={resStatus === 'success' ? '#2abc75' : '#dc2727'} title={resStatus} show={resStatus} />
     </>
     )
 }
