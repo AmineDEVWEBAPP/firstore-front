@@ -21,7 +21,7 @@ export default function DashboardHome() {
     const { losingUsers, users, notUsedProfiles, accounts } = useLoaderData()
     const { admin } = useOutletContext()
     return (<div
-        className='flex flex-col'>
+        className='flex flex-col p-10'>
         <header>
             <b
                 className='text-3xl tracking-tight text-[#101418]'>

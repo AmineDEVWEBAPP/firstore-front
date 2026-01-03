@@ -15,7 +15,7 @@ export default function Dashboard() {
         <Sidebare />
         <div
             className='body-container'>
-            <div className='overflow-y-scroll h-dvh p-10'>
+            <div className='overflow-y-scroll h-dvh'>
                 <Outlet context={{ admin }} />
             </div>
         </div>

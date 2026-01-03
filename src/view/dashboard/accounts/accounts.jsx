@@ -16,7 +16,7 @@ export default function Accounts() {
     const [createDialog, setCreateDialog] = useState(false)
   
 
-    return (<>
+    return (<div className='p-10'>
         <header
             className='flex justify-between items-end'>
             <div>   <b
@@ -43,5 +43,5 @@ export default function Accounts() {
                 <CreateAccountDialog show={createDialog} onCancel={() => setCreateDialog(false)} />
             </AccountsProvider>
         </div>
-    </>)
+    </div>)
 }

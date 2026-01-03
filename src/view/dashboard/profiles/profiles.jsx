@@ -15,7 +15,7 @@ export async function initProfiles() {
 export default function Profiles() {
     const [createDialog, setCreateDialog] = useState(false)
 
-    return (<>
+    return (<div className='p-10'>
         <header
             className='flex justify-between items-end'>
             <div>   <b
@@ -42,5 +42,5 @@ export default function Profiles() {
                 <CreateProfileDialog show={createDialog} onCancel={() => setCreateDialog(false)} />
             </ProfilesProvider>
         </div>
-    </>)
+    </div>)
 }

@@ -16,7 +16,7 @@ export async function offersInit() {
 
 export default function Offers() {
     const navigate = useNavigate()
-    return (<>
+    return (<div className='p-10'>
         <header
             className='flex justify-between items-end'>
             <div>
@@ -59,7 +59,7 @@ export default function Offers() {
                 <OfferTable />
             </section>
         </OffersProvider>
-    </>)
+    </div>)
 }
 
 function NewsSection() {
