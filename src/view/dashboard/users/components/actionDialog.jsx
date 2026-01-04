@@ -1,7 +1,23 @@
-export default function ActionDialog({ onMouseUp, onEdit, onEmail, onDelete }) {
+import { useEffect, useRef } from "react";
+
+export default function ActionDialog({ onEdit, onEmail, onDelete }) {
+    const ref = useRef(null)
+
+    function hiddenActionDialog() {
+        if (!ref.current.classList.contains('hidden')) ref.current.classList.add('hidden')
+    }
+
+    useEffect(function () {
+        function handleClickOutside(e) {
+            if (ref.current && !ref.current.contains(e.target)) hiddenActionDialog()
+        }
+
+        window.addEventListener("mousedown", handleClickOutside);
+        return document.removeEventListener("mousedown", handleClickOutside)
+    })
+
     return (
-        <div id='actionDialog'
-            onMouseUp={onMouseUp}
+        <div id='actionDialog' ref={ref}
             className='fixed rounded-xl border-2 border-[#dae0e7] py-3 bg-white top-0 -left-30 hidden'>
             <Action icon='edit' text='Edit User' onClick={onEdit} />
             <hr className='border-none my-2' />

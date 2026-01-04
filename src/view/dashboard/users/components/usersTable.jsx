@@ -24,7 +24,6 @@ export default function UsersTable() {
         if (res['status'] === 'success') setUsers(users.filter(user => user.id != selected))
     }
 
-
     function showActionDialog(btnId) {
         const actionBtn = document.getElementById(btnId)
         const actionDialog = document.getElementById('actionDialog')
@@ -37,26 +36,6 @@ export default function UsersTable() {
             `translate(${offsetLeft}px, ${offsetTop}px)`
         actionDialog.classList.remove(`hidden`)
     }
-
-    function hiddenActionDialog() {
-        const actionDialog = document.getElementById('actionDialog')
-        actionDialog.classList.add('hidden')
-    }
-
-
-    useEffect(function () {
-        const actionDialog = document.getElementById('actionDialog')
-
-        function handleClickOutside(e) {
-            if (actionDialog && !actionDialog.contains(e.target)) {
-                hiddenActionDialog();
-            }
-        }
-
-        document.addEventListener("mousedown", handleClickOutside);
-        return document.removeEventListener("mousedown", handleClickOutside)
-    }, [])
-
 
     return (<>
         <table
@@ -99,7 +78,7 @@ export default function UsersTable() {
                 </tr>))}
             </tbody>
         </table>
-        <ActionDialog onMouseUp={hiddenActionDialog} onDelete={() => setDeleteDialog(true)} onEdit={() => navigate(`${selected}/edit`)} />
+        <ActionDialog onDelete={() => setDeleteDialog(true)} onEdit={() => navigate(`${selected}/edit`)} />
         {deleteDialog ? <Dialog icon='warning' iconColor='#dc2727' show={true}
             title='Delete User' confirmColor='bg-red-700'
             cancelText='Cancel' confirmText={loading ? (<LoadingProcess size={20} borderSize={4} />) : 'Confirm Delete'}
