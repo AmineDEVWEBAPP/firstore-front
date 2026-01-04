@@ -47,4 +47,25 @@ export default class UserServices {
             return { 'status': 'failed' }
         }
     }
+
+    static async create(payload) {
+        const options = {
+            'method': 'POST',
+            'headers': {
+                'Content-Type': 'application/json'
+            },
+            'body': JSON.stringify(payload)
+        }
+        try {
+            const res = await fetch(this.baseurl, options)
+            if (!res.ok) {
+                const data = await res.json()
+                return { 'status': 'failed', 'error': data['error'] }
+            }
+            return { 'status': 'success' }
+        } catch (err) {
+            console.error(err)
+            return { 'status': 'failed', 'error': 'Inconnu error' }
+        }
+    }
 }

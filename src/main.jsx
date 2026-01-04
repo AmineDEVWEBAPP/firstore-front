@@ -12,7 +12,7 @@ import Users, { initUsers } from './view/dashboard/users/users.jsx'
 import adminAuth from './core/middleware/adminAuth.jsx'
 import adminLogged from './core/middleware/adminLogged.jsx'
 import CreateOffer from './view/dashboard/offers/createOffer/createOffer.jsx'
-import CreateUser from './view/dashboard/users/createUser/createUser.jsx'
+import CreateUser, { initCreateUser } from './view/dashboard/users/createUser/createUser.jsx'
 import EditOffer, { initEditOffer } from './view/dashboard/offers/editOffer/editOffer.jsx'
 import EditUser from './view/dashboard/users/editUser/editUser.jsx'
 
@@ -30,7 +30,7 @@ const routes = createBrowserRouter(
           <Route path='accounts' element={<Accounts />} loader={initAccounts} />
           <Route path='profiles' element={<Profiles />} loader={initProfiles} />
           <Route path='users' element={<Users />} loader={initUsers} />
-          <Route path='users/create' element={<CreateUser />} />
+          <Route path='users/create' element={<CreateUser />} loader={initCreateUser}/>
           <Route path='users/:id/edit' element={<EditUser />} />
         </Route>
       </Route>

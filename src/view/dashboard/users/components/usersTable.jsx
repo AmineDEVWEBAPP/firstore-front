@@ -8,8 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function UsersTable() {
     const { users, setUsers } = useContext(UsersContext)
-
-    const [selected, setSelected] = useState(users[0]['id'])
+    const [selected, setSelected] = useState(users.length !== 0 ? users[0]['id'] : null)
     const [deleteDialog, setDeleteDialog] = useState(false)
     const [loading, setLoading] = useState(false)
     const [resStatus, setResStatus] = useState(false)

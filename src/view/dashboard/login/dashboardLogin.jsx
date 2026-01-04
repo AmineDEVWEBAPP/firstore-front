@@ -9,19 +9,14 @@ export default function DashboardLogin() {
     const navigate = useNavigate()
 
     const [_, formAction, isPending] = useActionState(login, null)
-    const [isFailedLogin, setisFailedLogin] = useState(false)
-    const [test, setTest] = useState(false)
+    const [resStatus, setResStatus] = useState('success')
 
     async function login(_, queryData) {
         const email = queryData.get('email')
         const password = queryData.get('password')
         const res = await AdminServices.login(email, password)
-        setTest(JSON.stringify(res))
-        if (res['status'] === 'success') {
-            navigate('/dashboard/home')
-        } else {
-            setisFailedLogin(true)
-        }
+        setResStatus(res['status'])
+        if (res['status'] === 'success') navigate('/dashboard/home')
     }
 
 
@@ -33,7 +28,7 @@ export default function DashboardLogin() {
             <div
                 className='p-6 sm:p-8 md:p-10 w-[92vw] sm:w-[76vw] md:w-[60vw] lg:w-[44vw] xl:w-[36vw] max-w-180 bg-white rounded-4xl flex flex-col items-center shadow-md md:shadow-lg hover:shadow-xl transition-shadow duration-200'>
                 <div>
-                    {test}
+                    {resStatus}
                 </div>
                 <div
                     className='rounded-full flex justify-center items-center bg-orange-200 p-3'>
@@ -54,7 +49,7 @@ export default function DashboardLogin() {
                         >Forgot Password?</a>
                     </div>
                     <TextField type='password' />
-                    {isFailedLogin ? <p className='text-red-500'>failed login</p> : null}
+                    {resStatus === 'failed' ? <p className='text-red-500'>failed login</p> : null}
                     <SubmitButton isLoading={isPending} />
                 </form>
             </div>

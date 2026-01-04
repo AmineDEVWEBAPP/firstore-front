@@ -18,8 +18,7 @@ export default class AdminServices {
         try {
             const res = await fetch(url, options)
             if (!res.ok) return { 'status': 'failed' }
-            const data = await res.json()
-            return data
+            return { 'status': 'success' }
         } catch (e) {
             console.error(e)
             return { 'status': 'failed' }

@@ -84,4 +84,20 @@ export default class OfferServices {
             return { 'status': 'failed' }
         }
     }
+
+    static async getProfiles(id, { available = false } = {}) {
+        const options = {
+            'method': 'GET'
+        }
+        const url = `${this.baseUrl}/${id}/profiles?available=${available}`
+        try {
+            const res = await fetch(url, options)
+            if (!res.ok) return { 'status': 'failed' }
+            const data = await res.json()
+            return data
+        } catch (err) {
+            console.error(err)
+            return { 'status': 'failed' }
+        }
+    }
 }

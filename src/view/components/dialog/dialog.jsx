@@ -1,4 +1,4 @@
-export default function Dialog({ icon, iconColor, title, content, cancelText, confirmText, confirmColor, onCancel, onConfirm, show }) {
+export default function Dialog({ icon, iconColor, title, content, cancelText, confirmText, confirmColor, onCancel, onConfirm, show = true }) {
     return (
         <div
             onClick={onCancel}
