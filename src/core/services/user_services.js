@@ -40,11 +40,14 @@ export default class UserServices {
         }
         try {
             const res = await fetch(url, options)
-            if (!res.ok) return { 'status': 'failed' }
+            if (!res.ok) {
+                const data = await res.json()
+                return { 'status': 'failed', 'error': data['error'] }
+            }
             return { 'status': 'success' }
         } catch (err) {
             console.error(err)
-            return { 'status': 'failed' }
+            return { 'status': 'failed', 'error': 'Inconnu error' }
         }
     }
 
@@ -97,6 +100,24 @@ export default class UserServices {
             'body': JSON.stringify(payload)
         }
         const url = `${this.baseurl}/${id}`
+        try {
+            const res = await fetch(url, options)
+            if (!res.ok) {
+                const data = await res.json()
+                return { 'status': 'failed', 'error': data['error'] }
+            }
+            return { 'status': 'success' }
+        } catch (err) {
+            console.error(err)
+            return { 'status': 'failed', 'error': 'Inconnu error' }
+        }
+    }
+
+    static async sendEmail(id) {
+        const options = {
+            'method': 'POST'
+        }
+        const url = `${this.baseurl}/${id}/notice/email`
         try {
             const res = await fetch(url, options)
             if (!res.ok) {

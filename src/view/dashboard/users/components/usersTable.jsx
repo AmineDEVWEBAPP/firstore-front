@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import Dialog from '../../../components/dialog/dialog'
 import ActionDialog from './actionDialog'
 import { UsersContext } from "../../../../context/usersContext";
@@ -13,15 +13,29 @@ export default function UsersTable() {
     const [loading, setLoading] = useState(false)
     const [resStatus, setResStatus] = useState(false)
     const navigate = useNavigate()
+    const [loadingEmailDialog, setLoadingEmailDialog] = useState(false)
 
     async function deleteUser() {
         setLoading(true)
         const res = await UserServices.delete(selected)
         setLoading(false)
         setDeleteDialog(false)
-        setResStatus(res['status'])
-        setTimeout(() => setResStatus(null), 1000)
-        if (res['status'] === 'success') setUsers(users.filter(user => user.id != selected))
+        if (res['status'] === 'success')
+            setResStatus(res['status'])
+        else setResStatus(res['error'])
+        setTimeout(() => setResStatus(null), 1500)
+        if (res['status'] === 'success')
+            setUsers(users.filter(user => user.id != selected))
+    }
+
+    async function sendEmail() {
+        setLoadingEmailDialog(true)
+        const res = await UserServices.sendEmail(selected)
+        setLoadingEmailDialog(false)
+        if (res['status'] === 'success')
+            setResStatus(res['status'])
+        else setResStatus(res['error'])
+        setTimeout(() => setResStatus(null), 1500)
     }
 
     function showActionDialog(btnId) {
@@ -78,15 +92,28 @@ export default function UsersTable() {
                 </tr>))}
             </tbody>
         </table>
-        <ActionDialog onDelete={() => setDeleteDialog(true)} onEdit={() => navigate(`${selected}/edit`)} />
-        {deleteDialog ? <Dialog icon='warning' iconColor='#dc2727' show={true}
+        <ActionDialog
+            onDelete={() => setDeleteDialog(true)}
+            onEdit={() => navigate(`${selected}/edit`)}
+            onEmail={sendEmail}
+            hidden={() => {
+                let user = users.filter(user => user.id === selected)[0];
+                let email = user?.email
+                if (!email) return ['email']
+                return []
+            }} />
+        {deleteDialog ? <Dialog icon='warning' iconColor='#dc2727'
             title='Delete User' confirmColor='bg-red-700'
             cancelText='Cancel' confirmText={loading ? (<LoadingProcess size={20} borderSize={4} />) : 'Confirm Delete'}
             content={`Are you sure you want to delete this User? ${users.filter(user => user.id === selected)[0]['phone']}.`}
             onCancel={() => setDeleteDialog(false)}
             onConfirm={() => deleteUser()} /> : null}
         <Dialog icon={resStatus === 'success' ? 'check' : 'close'} show={resStatus}
-            iconColor={resStatus === 'success' ? '#2abc75' : '#dc2727'} title={resStatus} />
+            iconColor={resStatus === 'success' ? '#2abc75' : '#dc2727'}
+            title={resStatus === 'success' ? 'success' : 'failed'}
+            content={resStatus === 'success' ? null : resStatus} />
+        <Dialog icon='email' iconColor='#007bff' title='Sending Email'
+            content={<LoadingProcess />} show={loadingEmailDialog} />
     </>
     )
 }
