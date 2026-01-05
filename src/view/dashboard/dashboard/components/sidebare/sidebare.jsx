@@ -46,7 +46,7 @@ function NavButton({ icon, name, page, className }) {
     return (
         <NavLink
             to={page}
-            className={({ isActive }) => `${className} flex items-center w-full p-2 rounded-md gap-x-2 ${isActive ? 'text-(--primary-col) bg-blue-100' : 'text-[#384655] bg-white'}`}>
+            className={({ isActive }) => `${className} flex items-center w-full p-2 rounded-md gap-x-2 ${isActive ? 'text-(--primary-col) bg-blue-100' : 'text-[#384655] bg-white hover:bg-blue-50'}`}>
             <span className="material-symbols-outlined">
                 {icon}
             </span>

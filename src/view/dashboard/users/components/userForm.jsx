@@ -5,9 +5,10 @@ import OfferServices from "../../../../core/services/offer_services"
 import UserServices from "../../../../core/services/user_services"
 import Dialog from "../../../components/dialog/dialog"
 
-export default function UserForm() {
+export default function UserForm({ initUser }) {
+    const [user, setUser] = useState(initUser)
     const offers = useLoaderData()['offers']
-    const [selectedOffer, setSelectedOffer] = useState(offers[0]['id'])
+    const [selectedOffer, setSelectedOffer] = useState(initUser ? initUser.offer_id : offers[0]['id'])
     const [profiles, setProfiles] = useState([])
     const [isUpdating, setIsUpdating] = useState()
     const [message, formAction, isPending] = useActionState(createUser)
@@ -17,29 +18,35 @@ export default function UserForm() {
         async function fetchProfiles() {
             if (!mounted) return
             setIsUpdating(true)
-            const res = await OfferServices.getProfiles(selectedOffer, { available: true })
+            const res = await OfferServices.getProfiles(selectedOffer, { available: initUser ? false : true })
             setIsUpdating(false)
             if (res['status'] === 'failed') return setProfiles([])
             setProfiles(res)
         }
         fetchProfiles()
         return () => { mounted = false }
-    }, [selectedOffer])
+    }, [initUser, selectedOffer])
 
     async function createUser(_, data) {
         const profileId = parseInt(data.get('profile'))
         const email = data.get('User Email Address')
         const phone = data.get('Phone Number')
         const offerId = parseInt(selectedOffer)
+        const lastPayTime = new Date(data.get('Time of last payment'))
+        lastPayTime.setHours(lastPayTime.getHours() + 2)
 
         const payload = {
-            profileId,
             phone,
-            offerId,
-            'type': 'whatsapp'
+            offerId
         }
+        if (!initUser) payload['type'] = 'whatsapp'
+        if (initUser) payload['lastPayTime'] = lastPayTime.toISOString().slice(0, 19).replace("T", " ")
+        if (initUser) {
+            if (!isNaN(profileId)) payload['profileId'] = profileId
+        } else payload['profileId'] = profileId
         email.length === 0 ? null : payload['email'] = email
-        const res = await UserServices.create(payload)
+        console.log(payload)
+        const res = initUser ? await UserServices.update(user.id, payload) : await UserServices.create(payload)
         if (res['status'] === 'success') return 'success'
         return res['error']
     }
@@ -62,8 +69,10 @@ export default function UserForm() {
                 </div>
                 <div
                     className='grid grid-cols-1 md:grid-cols-2 gap-6 mt-3'>
-                    <TextField label='User Email Address' placeholder='user@example.com' type='email' required={false} />
-                    <TextField label='Phone Number' placeholder='+212 (6) 000-000' type='tel' pattern="^^\+[1-9][0-9]{7,14}$" />
+                    <TextField label='User Email Address' placeholder='user@example.com' type='email' required={false}
+                        value={user?.email} onChange={(e) => setUser(prev => ({ ...prev, 'email': e.target.value }))} />
+                    <TextField label='Phone Number' placeholder='+212 (6) 000-000' type='tel' pattern="^^\+[1-9][0-9]{7,14}$"
+                        value={user?.phone} onChange={(e) => setUser(prev => ({ ...prev, 'phone': e.target.value }))} />
                 </div>
                 <hr className='my-5 border-[#ececec]' />
                 <div
@@ -79,7 +88,16 @@ export default function UserForm() {
                         Offer & Profile Assignment
                     </b>
                 </div>
-                <TextField label='Assigned Offer' options={offers} className='mt-3' onChange={(e) => setSelectedOffer(e.target.value)} />
+                <div
+                    className={`mt-3 ${initUser ? 'grid grid-cols-1 md:grid-cols-2 gap-6' : ''}`}>
+                    <TextField label='Assigned Offer' options={offers}
+                        value={selectedOffer} onChange={(e) => setSelectedOffer(e.target.value)} />
+                    {initUser ?
+                        <TextField label='Time of last payment' type='datetime-local'
+                            value={new Date(user.last_pay_time).toISOString().slice(0, 16)}
+                            onChange={(e) => setUser(prev => ({ ...prev, 'last_pay_time': e.target.value }))} />
+                        : null}
+                </div>
                 <div
                     className='mt-3 bg-[#f8fafc] border-2 border-[#e3e8f0] rounded-xl p-4'>
                     <div
@@ -95,20 +113,28 @@ export default function UserForm() {
                         </p>
                     </div>
                     <ul className='mt-3 max-h-65 overflow-scroll'>
-                        {profiles.map(profile => (
-                            <li key={profile.id}
-                                className='border-2 border-[#e3e8f0] p-3 rounded-md flex items-center gap-3 bg-white mb-2'>
-                                <input type='radio' name='profile' value={profile.id} id={profile.id} required
-                                    className='size-5' />
-                                <label htmlFor={profile.id} className='w-full'>
-                                    <b>{profile.name}</b>
-                                    <br />
-                                    <a href={profile.payment_url}
-                                        className='text-[#64748b] hover:text-(--primary-col) hover:underline'>
-                                        {profile.payment_url}
-                                    </a>
-                                </label >
-                            </li>))}
+                        {profiles.map(profile => {
+                            const disabled = profile.id === user?.profile_id && profile.id === initUser?.profile_id || profile.used === 1
+                            const checked = user?.profile_id === profile.id
+                            return (
+                                <li key={profile.id}
+                                    className='border-2 border-[#e3e8f0] p-3 rounded-md flex items-center gap-3 bg-white mb-2'>
+                                    <input type='radio' name='profile' value={profile.id} id={profile.id}
+                                        required
+                                        disabled={disabled}
+                                        checked={checked}
+                                        onChange={(e) => { setUser(prev => ({ ...prev, 'profile_id': parseInt(e.target.value) })) }}
+                                        className='size-5' />
+                                    <label htmlFor={profile.id} className={`w-full ${disabled ? 'text-[#a0a0a0]' : ''}`}>
+                                        <b>{profile.name}</b>
+                                        <br />
+                                        <a href={profile.payment_url}
+                                            className='text-[#64748b] hover:text-(--primary-col) hover:underline'>
+                                            {profile.payment_url}
+                                        </a>
+                                    </label >
+                                </li>)
+                        })}
                     </ul>
                 </div>
             </div>
@@ -124,7 +150,7 @@ export default function UserForm() {
                         (<><span className="material-symbols-outlined">
                             save
                         </span>
-                            <p>Save User</p></>)}
+                            <p>{initUser ? 'Update' : 'Save'} User</p></>)}
                 </button>
             </div>
             {message === undefined ? null : <Dialog icon={message === 'success' ? 'check' : 'close'}

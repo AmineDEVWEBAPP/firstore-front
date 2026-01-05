@@ -116,7 +116,7 @@ function Type({ type }) {
     return (
         <span
             className={`flex items-center gap-1.5 border-2 rounded-full py-0.5 px-3
-        ${type === 'whatsapp' ? 'bg-[#dcfce7] text-[#196736] border-[#baf7cf]' : 'bg-[#f3e8ff] text-[#6c22a8] border-[#e8d5ff]'}`}>
+        ${type == 'whatsapp' ? 'bg-[#dcfce7] text-[#196736] border-[#baf7cf]' : 'bg-[#f3e8ff] text-[#6c22a8] border-[#e8d5ff]'}`}>
             <span
                 style={{
                     'fontSize': '18px'

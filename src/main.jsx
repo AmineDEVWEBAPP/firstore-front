@@ -14,7 +14,7 @@ import adminLogged from './core/middleware/adminLogged.jsx'
 import CreateOffer from './view/dashboard/offers/createOffer/createOffer.jsx'
 import CreateUser, { initCreateUser } from './view/dashboard/users/createUser/createUser.jsx'
 import EditOffer, { initEditOffer } from './view/dashboard/offers/editOffer/editOffer.jsx'
-import EditUser from './view/dashboard/users/editUser/editUser.jsx'
+import EditUser, { initEditUser } from './view/dashboard/users/editUser/editUser.jsx'
 
 const routes = createBrowserRouter(
   createRoutesFromElements(
@@ -30,8 +30,8 @@ const routes = createBrowserRouter(
           <Route path='accounts' element={<Accounts />} loader={initAccounts} />
           <Route path='profiles' element={<Profiles />} loader={initProfiles} />
           <Route path='users' element={<Users />} loader={initUsers} />
-          <Route path='users/create' element={<CreateUser />} loader={initCreateUser}/>
-          <Route path='users/:id/edit' element={<EditUser />} />
+          <Route path='users/create' element={<CreateUser />} loader={initCreateUser} />
+          <Route path='users/:id/edit' element={<EditUser />} loader={initEditUser} />
         </Route>
       </Route>
     </Route>
