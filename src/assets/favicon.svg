@@ -1,0 +1,42 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="92 92 328 328"
+  width="40"
+  height="40"
+>
+
+  <defs>
+    <linearGradient id="topGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2fd9ff"/>
+      <stop offset="100%" stop-color="#1a6bff"/>
+    </linearGradient>
+
+    <linearGradient id="leftGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1c4fa3"/>
+      <stop offset="100%" stop-color="#0b2c6f"/>
+    </linearGradient>
+
+    <linearGradient id="rightGrad" x1="1" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1e73c9"/>
+      <stop offset="100%" stop-color="#0d3f8c"/>
+    </linearGradient>
+
+    <linearGradient id="bottomGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#2affea"/>
+      <stop offset="100%" stop-color="#12c8ff"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Bottom -->
+  <polygon points="256,420 420,336 256,256 92,336" fill="url(#bottomGrad)" />
+
+  <!-- Left -->
+  <polygon points="92,176 256,92 256,256 92,336" fill="url(#leftGrad)" />
+
+  <!-- Right -->
+  <polygon points="420,176 256,92 256,256 420,336" fill="url(#rightGrad)" />
+
+  <!-- Top -->
+  <polygon points="256,92 420,176 256,256 92,176" fill="url(#topGrad)" />
+
+</svg>

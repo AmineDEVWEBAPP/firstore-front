@@ -1,0 +1,19 @@
+.bring {
+    animation-name: translation;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes translation {
+    0% {
+        transform: translateX(-100px)
+    }
+
+    50% {
+        transform: translateX(-100px)
+    }
+
+    100% {
+        transform: translateX(100px)
+    }
+}

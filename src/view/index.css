@@ -22,8 +22,15 @@
     overflow: hidden;
 }
 
+a {
+    transition: all;
+    transition-duration: 150ms;
+}
+
 button {
     cursor: pointer;
+    transition: all;
+    transition-duration: 150ms;
 }
 
 button:hover {

@@ -15,12 +15,12 @@ import CreateOffer from './view/dashboard/offers/createOffer/createOffer.jsx'
 import CreateUser, { initCreateUser } from './view/dashboard/users/createUser/createUser.jsx'
 import EditOffer, { initEditOffer } from './view/dashboard/offers/editOffer/editOffer.jsx'
 import EditUser, { initEditUser } from './view/dashboard/users/editUser/editUser.jsx'
-import Home from './view/home/home.jsx'
+import Home, { initHome } from './view/home/home.jsx'
 
 const routes = createBrowserRouter(
   createRoutesFromElements(
     <Route>
-      <Route path='/' element={<Home/>}/>
+      <Route path='/' element={<Home />} loader={initHome} />
       <Route path='dashboard'>
         <Route path='login' element={<DashboardLogin />} loader={adminAuth} />
         <Route element={<Dashboard />} loader={adminLogged}>
