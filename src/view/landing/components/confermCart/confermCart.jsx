@@ -28,7 +28,7 @@ export default function ConfermForm() {
             className='flex flex-col sm:flex-row items-center mt-14 w-full max-w-140 lg:max-w-160 gap-3'>
             <div
                 className='relative w-full'>
-                <label for='phoneNumber'
+                <label htmlFor='phoneNumber'
                     className='absolute -top-7'>
                     <b>Enter phone number</b>
                 </label>

@@ -10,7 +10,7 @@ export default function DisktopBody() {
                 'gridTemplateColumns': `repeat(${offers.length}, 1fr)`
             }}
             className='mt-13 hidden lg:grid lg:gap-10 xl:gap-15 w-full'>
-            {offers.map(offer => <Cart offer={offer} selected={selectedOffer['id'] === offer['id']} onClick={() => setSelectedOffer(offer)} />)}
+            {offers.map(offer => <Cart key={offer['id']} offer={offer} selected={selectedOffer['id'] === offer['id']} onClick={() => setSelectedOffer(offer)} />)}
         </div>
     )
 }

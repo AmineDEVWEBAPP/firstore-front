@@ -2,8 +2,8 @@ import { useActionState, useState } from "react"
 import TextField from "./components/textField/textField.jsx"
 import SubmitButton from "./components/submitButton/submitButton.jsx"
 import AdminServices from "../../../core/services/admin_services.js"
-import { Helmet } from "react-helmet"
 import { useNavigate } from "react-router-dom"
+import { Helmet } from "react-helmet-async";
 
 export default function DashboardLogin() {
     const navigate = useNavigate()

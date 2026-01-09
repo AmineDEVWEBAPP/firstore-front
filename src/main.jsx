@@ -15,12 +15,13 @@ import CreateOffer from './view/dashboard/offers/createOffer/createOffer.jsx'
 import CreateUser, { initCreateUser } from './view/dashboard/users/createUser/createUser.jsx'
 import EditOffer, { initEditOffer } from './view/dashboard/offers/editOffer/editOffer.jsx'
 import EditUser, { initEditUser } from './view/dashboard/users/editUser/editUser.jsx'
-import Home, { initHome } from './view/home/home.jsx'
+import Landing, { initLanding } from './view/landing/landing.jsx'
+import { HelmetProvider } from 'react-helmet-async'
 
 const routes = createBrowserRouter(
   createRoutesFromElements(
     <Route>
-      <Route path='/' element={<Home />} loader={initHome} />
+      <Route index path='/' element={<Landing />} loader={initLanding} />
       <Route path='dashboard'>
         <Route path='login' element={<DashboardLogin />} loader={adminAuth} />
         <Route element={<Dashboard />} loader={adminLogged}>
@@ -41,7 +42,9 @@ const routes = createBrowserRouter(
 )
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <RouterProvider router={routes} />
-  </StrictMode>,
+  <HelmetProvider>
+    <StrictMode>
+      <RouterProvider router={routes} />
+    </StrictMode>
+  </HelmetProvider>
 )
