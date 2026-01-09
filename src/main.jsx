@@ -17,6 +17,7 @@ import EditOffer, { initEditOffer } from './view/dashboard/offers/editOffer/edit
 import EditUser, { initEditUser } from './view/dashboard/users/editUser/editUser.jsx'
 import Landing, { initLanding } from './view/landing/landing.jsx'
 import { HelmetProvider } from 'react-helmet-async'
+import NotFound from './view/notFound.jsx'
 
 const routes = createBrowserRouter(
   createRoutesFromElements(
@@ -37,14 +38,15 @@ const routes = createBrowserRouter(
           <Route path='users/:id/edit' element={<EditUser />} loader={initEditUser} />
         </Route>
       </Route>
+      <Route path='*' element={<NotFound />} />
     </Route>
   )
 )
 
 createRoot(document.getElementById('root')).render(
-  <HelmetProvider>
-    <StrictMode>
+  <StrictMode>
+    <HelmetProvider>
       <RouterProvider router={routes} />
-    </StrictMode>
-  </HelmetProvider>
+    </HelmetProvider>
+  </StrictMode>
 )
