@@ -7,6 +7,7 @@ import DisktopBody from "./components/disktopBody";
 import Logo from "../components/logo";
 import PhoneBody from "./components/phoneBody";
 import { useContext } from "react";
+import { Helmet } from "react-helmet";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export async function initHome() {
@@ -16,6 +17,12 @@ export async function initHome() {
 
 export default function Home() {
     return (<HomeProvider>
+        <Helmet>
+            <meta name="author" content="Amine khadir" />
+            <title>Buy Netflix Premium Accounts | HD & 4K Streaming</title>
+            <meta name="description" content="Buy Netflix Premium accounts at affordable prices. Instant delivery, secure payment, multiple profiles, and 24/7 customer support. Enjoy HD and 4K streaming today." />
+            <meta name="keywords" content="Netflix account, Netflix Premium, buy Netflix, Netflix subscription, Netflix HD, Netflix 4K, Netflix profiles, streaming accounts" />
+        </Helmet>
         <div
             className='min-h-full'>
             <header
