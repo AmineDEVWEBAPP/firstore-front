@@ -1,4 +1,4 @@
-import Config from "../config/config"
+import Config from "../../config/config"
 
 export default class CheckoutServices {
     static baseurl = `${Config.apiurl}/checkout`

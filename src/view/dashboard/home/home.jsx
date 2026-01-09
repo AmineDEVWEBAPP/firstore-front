@@ -1,20 +1,20 @@
 import { useLoaderData, useNavigate, useOutletContext } from "react-router-dom";
 import ActionCard from "./components/actionCard/actionCard";
 import NewsCard from "./components/newsCard/newsCard";
-import UserServices from '../../../core/services/user_services'
-import ProfileServices from '../../../core/services/profile_services'
-import AccountServices from '../../../core/services/account_services'
+import UserServices from '../../../services/user_services'
+import ProfileServices from '../../../services/profile_services'
+import AccountServices from '../../../services/account_services'
 
 // eslint-disable-next-line react-refresh/only-export-components
 export async function dashboardHomeinit() {
-        let [users, profiles, accounts] = await Promise.all([UserServices.getUsers(), ProfileServices.getProfiles(), AccountServices.getAccounts()])
-        const losingUsers = users.filter(user => {
-            const lastPay = new Date(user.last_pay_time)
-            return lastPay.getTime() > new Date().getTime()
-        })
-        const notUsedProfiles = profiles.filter(profile => profile.used !== 0)
-        return { users, losingUsers, notUsedProfiles, accounts }
-    }
+    let [users, profiles, accounts] = await Promise.all([UserServices.getUsers(), ProfileServices.getProfiles(), AccountServices.getAccounts()])
+    const losingUsers = users.filter(user => {
+        const lastPay = new Date(user.last_pay_time)
+        return lastPay.getTime() > new Date().getTime()
+    })
+    const notUsedProfiles = profiles.filter(profile => profile.used !== 0)
+    return { users, losingUsers, notUsedProfiles, accounts }
+}
 
 export default function DashboardHome() {
     const navigate = useNavigate()
@@ -28,7 +28,7 @@ export default function DashboardHome() {
                 Welcome back, {admin.name}
             </b>
             <p
-                 className='mt-1 text-[#5e758d]'>
+                className='mt-1 text-[#5e758d]'>
                 Here's what's happening with your platform.
             </p>
         </header>

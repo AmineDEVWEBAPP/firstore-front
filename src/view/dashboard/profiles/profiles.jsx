@@ -1,9 +1,9 @@
 import { useState } from "react"
 import { ProfilesProvider } from "../../../context/profilesContext"
-import ProfileServices from "../../../core/services/profile_services"
+import ProfileServices from "../../../services/profile_services"
 import ProfilsTable from "./components/profilesTable/profilesTable"
 import CreateProfileDialog from "./components/createProfileDialog/createProfileDialog"
-import AccountServices from "../../../core/services/account_services"
+import AccountServices from "../../../services/account_services"
 
 // eslint-disable-next-line react-refresh/only-export-components
 export async function initProfiles() {

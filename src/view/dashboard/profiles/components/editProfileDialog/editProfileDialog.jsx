@@ -3,7 +3,7 @@ import LoadingProcess from "../../../../components/loadingProcess/loadingProcess
 import Dialog from "../../../../components/dialog/dialog"
 import SwitchInput from '../../../../components/switchInput/switchInput'
 import { ProfilesContext } from "../../../../../context/profilesContext"
-import ProfileServices from "../../../../../core/services/profile_services"
+import ProfileServices from "../../../../../services/profile_services"
 
 export default function EditProfileDialog({ onCancel, id }) {
     const { profiles, setProfiles } = useContext(ProfilesContext)

@@ -1,5 +1,5 @@
 import Icon from "../../assets/favicon.svg"
-import { WhatsappIcon } from "../../core/config/constants"
+import { WhatsappIcon } from "../../config/constants"
 
 export default function Footer() {
     return (

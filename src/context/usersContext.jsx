@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
-import UserServices from "../core/services/user_services";
+import UserServices from "../services/user_services";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const UsersContext = createContext()

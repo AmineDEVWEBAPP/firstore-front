@@ -1,4 +1,4 @@
-import Config from "../config/config";
+import Config from "../../config/config";
 
 export default class AccountServices {
     static baseUrl = `${Config.apiurl}/accounts`
@@ -64,7 +64,7 @@ export default class AccountServices {
         try {
             const res = await fetch(url, options)
             if (!res.ok) return { 'status': 'failed' }
-            return { 'status': 'success'}
+            return { 'status': 'success' }
         } catch (e) {
             console.error(e)
             return { 'status': 'failed' }

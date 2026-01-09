@@ -1,7 +1,7 @@
 import NewsCard from "./components/newsCard/newsCard";
 import OfferTable from "./components/offerTable/offerTable";
 import SearchInput from "./components/searchInput/searchInput";
-import OfferServices from "../../../core/services/offer_services";
+import OfferServices from "../../../services/offer_services";
 import OffersProvider, { OffersContext } from "../../../context/offersContext";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";

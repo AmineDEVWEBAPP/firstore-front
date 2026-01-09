@@ -1,6 +1,6 @@
 import { HomeContext, HomeProvider } from "../../context/homeContext";
-import { WhatsappIcon } from "../../core/config/constants";
-import OfferServices from "../../core/services/offer_services";
+import { WhatsappIcon } from "../../config/constants";
+import OfferServices from "../../services/offer_services";
 import Footer from "../components/footer";
 import ConfermForm from "./components/confermCart/confermCart";
 import DisktopBody from "./components/disktopBody";

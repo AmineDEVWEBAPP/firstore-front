@@ -1,8 +1,8 @@
 import { useState } from "react"
-import AccountServices from "../../../core/services/account_services"
+import AccountServices from "../../../services/account_services.js"
 import AccountsTable from "./components/accountsTable/accountsTable"
 import CreateAccountDialog from './components/createAccountDialog/createAccountDialog.jsx'
-import OfferServices from "../../../core/services/offer_services.js"
+import OfferServices from "../../../services/offer_services.js"
 import { AccountsProvider } from "../../../context/accountsContext.jsx"
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -14,7 +14,7 @@ export async function initAccounts() {
 
 export default function Accounts() {
     const [createDialog, setCreateDialog] = useState(false)
-  
+
 
     return (<div className='p-10'>
         <header

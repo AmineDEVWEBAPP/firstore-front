@@ -1,7 +1,7 @@
 import { useContext, useState } from "react"
 import Dialog from '../../../../components/dialog/dialog'
 import LoadingProcess from '../../../../components/loadingProcess/loadingProcess'
-import AccountServices from "../../../../../core/services/account_services"
+import AccountServices from "../../../../../services/account_services"
 import { AccountsContext } from "../../../../../context/accountsContext"
 import EditAccountDialog from "../editAccountDialog/editAccountDialog"
 

@@ -1,7 +1,7 @@
 import { useActionState, useState } from "react"
 import TextField from "./components/textField/textField.jsx"
 import SubmitButton from "./components/submitButton/submitButton.jsx"
-import AdminServices from "../../../core/services/admin_services.js"
+import AdminServices from "../../../services/admin_services.js"
 import { useNavigate } from "react-router-dom"
 import { Helmet } from "react-helmet-async";
 

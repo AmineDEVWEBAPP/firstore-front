@@ -1,6 +1,6 @@
 import { useLoaderData } from "react-router-dom";
-import OfferServices from "../../../../core/services/offer_services";
-import UserServices from "../../../../core/services/user_services";
+import OfferServices from "../../../../services/offer_services";
+import UserServices from "../../../../services/user_services";
 import UserForm from "../components/userForm";
 
 // eslint-disable-next-line react-refresh/only-export-components

@@ -1,7 +1,7 @@
 import { useActionState, useContext, useState } from 'react'
 import './style.css'
 import LoadingProcess from '../../../components/loadingProcess/loadingProcess'
-import CheckoutServices from '../../../../core/services/checkout_services'
+import CheckoutServices from '../../../../services/checkout_services'
 import { HomeContext } from '../../../../context/homeContext'
 import Dialog from '../../../components/dialog/dialog'
 

@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import Dialog from '../../../components/dialog/dialog'
 import ActionDialog from './actionDialog'
 import { UsersContext } from "../../../../context/usersContext";
-import UserServices from '../../../../core/services/user_services'
+import UserServices from '../../../../services/user_services'
 import LoadingProcess from '../../../components/loadingProcess/loadingProcess'
 import { useNavigate } from "react-router-dom";
 

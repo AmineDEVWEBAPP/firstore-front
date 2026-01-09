@@ -1,6 +1,6 @@
 import NewsCard from "./components/newsCard";
 import UsersTable from "./components/usersTable";
-import UserServices from '../../../core/services/user_services'
+import UserServices from '../../../services/user_services'
 import { UsersContext, UsersProvider } from "../../../context/usersContext";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";

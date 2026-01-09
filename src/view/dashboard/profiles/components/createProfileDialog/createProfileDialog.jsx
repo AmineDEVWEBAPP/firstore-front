@@ -2,7 +2,7 @@ import { useActionState, useContext, useState } from "react"
 import LoadingProcess from "../../../../components/loadingProcess/loadingProcess"
 import Dialog from "../../../../components/dialog/dialog"
 import { ProfilesContext } from "../../../../../context/profilesContext"
-import ProfileServices from "../../../../../core/services/profile_services"
+import ProfileServices from "../../../../../services/profile_services"
 import { useLoaderData } from "react-router-dom"
 
 export default function CreateProfileDialog({ onCancel, show }) {

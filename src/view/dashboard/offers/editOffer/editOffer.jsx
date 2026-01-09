@@ -1,6 +1,6 @@
 import { useLoaderData } from "react-router-dom"
 import OfferForm from "../components/offerForm/offerForm";
-import OfferServices from "../../../../core/services/offer_services";
+import OfferServices from "../../../../services/offer_services";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export async function initEditOffer({ params }) {

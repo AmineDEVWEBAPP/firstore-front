@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import { useContext, useState } from "react"
 import Dialog from '../../../../components/dialog/dialog'
-import OfferServices from "../../../../../core/services/offer_services"
+import OfferServices from "../../../../../services/offer_services"
 import LoadingProcess from '../../../../components/loadingProcess/loadingProcess'
 import { OffersContext } from "../../../../../context/offersContext"
 

@@ -1,8 +1,8 @@
 import { useActionState, useEffect, useState } from "react"
 import { useLoaderData } from "react-router-dom"
 import LoadingProcess from '../../../components/loadingProcess/loadingProcess'
-import OfferServices from "../../../../core/services/offer_services"
-import UserServices from "../../../../core/services/user_services"
+import OfferServices from "../../../../services/offer_services"
+import UserServices from "../../../../services/user_services"
 import Dialog from "../../../components/dialog/dialog"
 
 export default function UserForm({ initUser }) {

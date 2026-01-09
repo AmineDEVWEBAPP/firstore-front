@@ -1,5 +1,5 @@
 import UserForm from "../components/userForm";
-import OfferServices from '../../../../core/services/offer_services'
+import OfferServices from '../../../../services/offer_services'
 
 // eslint-disable-next-line react-refresh/only-export-components
 export async function initCreateUser() {
