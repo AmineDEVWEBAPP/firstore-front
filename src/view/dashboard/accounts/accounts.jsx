@@ -1,14 +1,14 @@
 import { useState } from "react"
-import AccountServices from "../../../services/account_services.js"
-import AccountsTable from "./components/accountsTable/accountsTable"
-import CreateAccountDialog from './components/createAccountDialog/createAccountDialog.jsx'
-import OfferServices from "../../../services/offer_services.js"
+import AccountsTable from "./components/accountsTable"
+import CreateAccountDialog from './components/createAccountDialog.jsx'
 import { AccountsProvider } from "../../../context/accountsContext.jsx"
+import reqres from "../../../utils/reqres.js"
+import { redirect } from "react-router-dom"
 
 // eslint-disable-next-line react-refresh/only-export-components
 export async function initAccounts() {
-    const accounts = await AccountServices.getAccounts()
-    const offers = await OfferServices.get()
+    const [accounts, offers] = await Promise.all([reqres('accounts', 'GET'), reqres('offers', 'GET')])
+    if (accounts['status'] === 'failed' || offers['status'] === 'failed') throw redirect('/notfound')
     return { accounts, offers }
 }
 
@@ -29,7 +29,7 @@ export default function Accounts() {
                 </p>
             </div>
             <button onClick={() => setCreateDialog(true)}
-                className='text-white bg-(--primary-col) font-bold flex items-center rounded-lg h-10 px-3'>
+                className='text-white bg-(--primary-col) font-bold flex items-center rounded-lg h-10 px-3 shadow'>
                 <span className="material-symbols-outlined">
                     add
                 </span>
@@ -45,3 +45,5 @@ export default function Accounts() {
         </div>
     </div>)
 }
+
+

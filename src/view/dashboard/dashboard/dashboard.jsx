@@ -1,11 +1,14 @@
-import { Outlet, useLoaderData } from "react-router-dom";
-import Sidebare from "./components/sidebare/sidebare";
-import AdminServices from "../../../services/admin_services";
+import { Outlet, redirect, useLoaderData } from "react-router-dom";
+import Sidebare from "./components/sidebare";
+import reqres from "../../../utils/reqres";
 
 // eslint-disable-next-line react-refresh/only-export-components
-export async function dashboardInit() {
-    const [admin] = await Promise.all([AdminServices.get()])
-    return { admin }
+export async function initDashboard() {
+    const res = await reqres('admin/logged', 'POST')
+    if (res['status'] === 'failed') throw redirect('/dashboard/login')
+    const adminRes = await reqres('admin', 'GET')
+    if (adminRes['status'] === 'failed') throw redirect('/notfound')
+    return { 'admin': adminRes }
 }
 
 export default function Dashboard() {

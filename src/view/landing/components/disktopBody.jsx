@@ -9,7 +9,7 @@ export default function DisktopBody() {
             style={{
                 'gridTemplateColumns': `repeat(${offers.length}, 1fr)`
             }}
-            className='mt-13 hidden lg:grid lg:gap-10 xl:gap-15 w-full'>
+            className={`mt-13 hidden ${offers.length === 1 ? 'lg:flex justify-center' : 'lg:grid'} lg:gap-10 xl:gap-15 w-full items-center`}>
             {offers.map(offer => <Cart key={offer['id']} offer={offer} selected={selectedOffer['id'] === offer['id']} onClick={() => setSelectedOffer(offer)} />)}
         </div>
     )

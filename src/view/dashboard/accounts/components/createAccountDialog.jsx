@@ -1,9 +1,9 @@
 import { useActionState, useContext, useState } from "react"
 import { useLoaderData } from "react-router-dom"
-import AccountServices from "../../../../../services/account_services"
-import LoadingProcess from "../../../../components/loadingProcess/loadingProcess"
-import Dialog from "../../../../components/dialog/dialog"
-import { AccountsContext } from "../../../../../context/accountsContext"
+import LoadingProcess from "../../../components/loadingProcess/loadingProcess"
+import Dialog from "../../../components/dialog/dialog"
+import { AccountsContext } from "../../../../context/accountsContext"
+import reqres from "../../../../utils/reqres"
 
 export default function CreateAccountDialog({ show, onCancel }) {
     const { setAccounts } = useContext(AccountsContext)
@@ -14,14 +14,13 @@ export default function CreateAccountDialog({ show, onCancel }) {
         const email = data.get('Email Address')
         const password = data.get('Password')
         const offerId = parseInt(data.get('Assign Offer'))
-        const res = await AccountServices.create({ email, password, offerId })
+        const res = await reqres('accounts', 'POST', { email, password, offerId })
         setStatusDialog(true)
-        if (res.status === 'success') {
-            const newAccounts = await AccountServices.getAccounts()
-            setAccounts(newAccounts)
-            return true
-        }
-        return false
+        if (res['status'] === 'failed') return res['error']
+        const newAccounts = await reqres('accounts', 'GET')
+        if (newAccounts['status'] === 'failed') return newAccounts['error']
+        setAccounts(newAccounts)
+        return 'success'
     }
 
     return (
@@ -51,7 +50,7 @@ export default function CreateAccountDialog({ show, onCancel }) {
                             Cancel
                         </button>
                         <button disabled={isPending}
-                            className={`bg-(--primary-col) text-white flex items-center justify-center py-2 rounded-xl font-bold px-5 min-w-25`}>
+                            className={`bg-(--primary-col) text-white flex items-center justify-center py-2 rounded-xl font-bold px-5 min-w-25 shadow`}>
                             {isPending ?
                                 <LoadingProcess size='24' borderSize={4} />
                                 : 'Create'}
@@ -59,9 +58,10 @@ export default function CreateAccountDialog({ show, onCancel }) {
                     </div>
                 </form>
             </div>
-            <Dialog show={statusDialog} icon={message ? 'check' : 'close'}
-                iconColor={message ? '#2abc75' : '#dc2727'}
-                title={message ? 'success' : 'failed'}
+            <Dialog show={statusDialog} icon={message === 'success' ? 'check' : 'close'}
+                iconColor={message === 'success' ? '#2abc75' : '#dc2727'}
+                title={message === 'success' ? 'Success' : 'Failed'}
+                content={message === 'success' ? null : message}
                 onCancel={() => setStatusDialog(false)} />
         </div>
     )

@@ -1,14 +1,15 @@
 import { useState } from "react"
 import { ProfilesProvider } from "../../../context/profilesContext"
-import ProfileServices from "../../../services/profile_services"
-import ProfilsTable from "./components/profilesTable/profilesTable"
-import CreateProfileDialog from "./components/createProfileDialog/createProfileDialog"
-import AccountServices from "../../../services/account_services"
+import ProfilsTable from "./components/profilesTable"
+import CreateProfileDialog from "./components/createProfileDialog"
+import reqres from "../../../utils/reqres"
+import { redirect } from "react-router-dom"
 
 // eslint-disable-next-line react-refresh/only-export-components
 export async function initProfiles() {
-    const profiles = await ProfileServices.getProfiles()
-    const accounts = await AccountServices.getAccounts()
+    const profiles = await reqres('profiles', 'GET')
+    const accounts = await reqres('accounts', 'GET')
+    if (profiles['status'] === 'failed' || accounts['status'] === 'failed') throw redirect('/notfound')
     return { profiles, accounts }
 }
 
@@ -28,7 +29,7 @@ export default function Profiles() {
                 </p>
             </div>
             <button onClick={() => setCreateDialog(true)}
-                className='text-white bg-(--primary-col) font-bold flex items-center rounded-lg h-10 px-3'>
+                className='text-white bg-(--primary-col) font-bold flex items-center rounded-lg h-10 px-3 shadow'>
                 <span className="material-symbols-outlined">
                     add
                 </span>

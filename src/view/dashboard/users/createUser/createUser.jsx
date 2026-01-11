@@ -1,9 +1,9 @@
 import UserForm from "../components/userForm";
-import OfferServices from '../../../../services/offer_services'
+import reqres from "../../../../utils/reqres";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export async function initCreateUser() {
-    const offers = await OfferServices.get()
+    const offers = await reqres('offers','GET')
     return { offers }
 }
 

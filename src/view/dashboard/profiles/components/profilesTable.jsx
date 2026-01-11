@@ -1,6 +1,6 @@
 import { useContext, useState } from "react"
-import { ProfilesContext } from "../../../../../context/profilesContext"
-import EditProfileDialog from "../editProfileDialog/editProfileDialog"
+import { ProfilesContext } from "../../../../context/profilesContext"
+import EditProfileDialog from "./editProfileDialog"
 
 export default function ProfilsTable() {
     const { profiles } = useContext(ProfilesContext)

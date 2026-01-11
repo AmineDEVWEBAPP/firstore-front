@@ -1,12 +1,13 @@
-import { useLoaderData } from "react-router-dom"
-import OfferForm from "../components/offerForm/offerForm";
-import OfferServices from "../../../../services/offer_services";
+import { redirect, useLoaderData } from "react-router-dom"
+import OfferForm from "../components/offerForm";
+import reqres from "../../../../utils/reqres";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export async function initEditOffer({ params }) {
     const { id } = params
-    const res = await OfferServices.getById(id)
-    return { 'offer': res, id }
+    const offer = await reqres('offers/' + id, 'GET')
+    if (offer['status'] === 'failed') throw redirect('/notfound')
+    return { offer, id }
 }
 
 export default function EditOffer() {

@@ -1,9 +1,9 @@
 import { useActionState, useContext, useState } from 'react'
 import './style.css'
 import LoadingProcess from '../../../components/loadingProcess/loadingProcess'
-import CheckoutServices from '../../../../services/checkout_services'
 import { HomeContext } from '../../../../context/homeContext'
 import Dialog from '../../../components/dialog/dialog'
+import reqres from '../../../../utils/reqres'
 
 export default function ConfermForm() {
     const dialingCodes = ['+212']
@@ -15,7 +15,7 @@ export default function ConfermForm() {
         const dialingCode = data.get('dialingCode')
         const phone = dialingCode + data.get('phoneNumber')
         const payload = { 'offerId': selectedOffer['id'], phone }
-        const res = await CheckoutServices.start(payload)
+        const res = await reqres('checkout/start', 'POST', payload)
         if (res['status'] === 'failed') {
             setDialog(true)
             return res['error']

@@ -1,22 +1,29 @@
 import { useActionState, useState } from "react"
 import TextField from "./components/textField/textField.jsx"
 import SubmitButton from "./components/submitButton/submitButton.jsx"
-import AdminServices from "../../../services/admin_services.js"
-import { useNavigate } from "react-router-dom"
+import { redirect, useNavigate } from "react-router-dom"
 import { Helmet } from "react-helmet-async";
+import reqres from "../../../utils/reqres.js"
+
+// eslint-disable-next-line react-refresh/only-export-components
+export async function initLogin() {
+    const res = await reqres('admin/logged', 'POST')
+    if (res['status'] !== 'failed') throw redirect('/dashboard/home')
+}
 
 export default function DashboardLogin() {
     const navigate = useNavigate()
 
-    const [_, formAction, isPending] = useActionState(login, null)
-    const [resStatus, setResStatus] = useState('success')
+    const [_, formAction, isPending] = useActionState(login)
+    const [resStatus, setResStatus] = useState()
 
     async function login(_, queryData) {
         const email = queryData.get('email')
         const password = queryData.get('password')
-        const res = await AdminServices.login(email, password)
-        setResStatus(res['status'])
-        if (res['status'] === 'success') navigate('/dashboard/home')
+        const res = await reqres('admin/login', 'POST', { email, password })
+        if (res['status'] === 'failed') {
+            setResStatus('Failed')
+        } else navigate('/dashboard/home')
     }
 
 

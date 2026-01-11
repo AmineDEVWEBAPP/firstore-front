@@ -1,30 +1,27 @@
 import { useActionState, useContext, useState } from "react"
-import LoadingProcess from "../../../../components/loadingProcess/loadingProcess"
-import Dialog from "../../../../components/dialog/dialog"
-import SwitchInput from '../../../../components/switchInput/switchInput'
-import { ProfilesContext } from "../../../../../context/profilesContext"
-import ProfileServices from "../../../../../services/profile_services"
+import LoadingProcess from "../../../components/loadingProcess/loadingProcess"
+import Dialog from "../../../components/dialog/dialog"
+import { AccountsContext } from "../../../../context/accountsContext"
+import SwitchInput from '../../../components/switchInput/switchInput'
+import reqres from "../../../../utils/reqres"
 
-export default function EditProfileDialog({ onCancel, id }) {
-    const { profiles, setProfiles } = useContext(ProfilesContext)
-    let [targetProfile, setTargetProfile] = useState(profiles.filter(profile => profile.id === id)[0])
+export default function EditAccountDialog({ onCancel, id }) {
+    const { accounts, setAccounts } = useContext(AccountsContext)
+    let [targetAccount, setTargetAccount] = useState(accounts.filter(account => account.id === id)[0])
     const [message, formAction, isPending] = useActionState(update)
     const [statusDialog, setStatusDialog] = useState(false)
 
     async function update(_, data) {
-        const name = data.get('Profile Name')
-        const pinCode = parseInt(data.get('PIN Code'))
-        const paymentUrl = data.get('Payment Url')
-        const used = data.get('used') === null ? false : data.get('used') === 'on' ? true : false
-        const payload = { name, pinCode, used, paymentUrl }
-        const res = await ProfileServices.update(id, payload)
+        const email = data.get('Email Address')
+        const password = data.get('New Password')
+        const itWorks = data.get('It Works') === null ? false : data.get('It Works') === 'on' ? true : false
+        const payload = { email, password, itWorks }
+        const res = await reqres('accounts/' + id, 'PATCH', payload)
         setStatusDialog(true)
-        if (res.status === 'success') {
-            const newProfiles = await ProfileServices.getProfiles()
-            setProfiles(newProfiles)
-            return true
-        }
-        return false
+        if (res['status'] === 'failed') return res['error']
+        const newAccounts = await reqres('accounts', 'GET')
+        setAccounts(newAccounts)
+        return 'success'
     }
 
     return (
@@ -37,22 +34,19 @@ export default function EditProfileDialog({ onCancel, id }) {
                     className='flex flex-col'>
                     <div className='p-6'>
                         <b className='text-xl'>
-                            Edit Profile
+                            Edit Account
                         </b>
                         <p className='text-[#5e758d]'>
                             Update existing credentials and operational status.
                         </p>
-                        <TextField label='Profile Name' value={targetProfile.name}
-                            onChange={(e) => setTargetProfile(prev => ({ ...prev, 'name': e.target.value }))}
-                            placeholder='profile name' className='mt-6' />
-                        <TextField label='PIN Code' type='number' value={targetProfile.pin_code}
-                            onChange={(e) => setTargetProfile(prev => ({ ...prev, 'pin_code': e.target.value }))}
-                            placeholder='pin code' className='mt-3' />
-                        <TextField label='Payment Url' value={targetProfile.payment_url} type='url'
-                            onChange={(e) => setTargetProfile(prev => ({ ...prev, 'payment_url': e.target.value }))}
-                            placeholder='Payment Url' className='mt-3' />
-                        <SwitchField checked={targetProfile.used === 1 || targetProfile.used} name='used'
-                            onChange={(e) => setTargetProfile(prev => ({ ...prev, 'used': e.target.checked }))} />
+                        <TextField label='Email Address' type='email' value={targetAccount.email}
+                            onChange={(e) => setTargetAccount(prev => ({ ...prev, 'email': e.target.value }))}
+                            placeholder='account@example.com' className='mt-6' />
+                        <TextField label='New Password' value={targetAccount.password}
+                            onChange={(e) => setTargetAccount(prev => ({ ...prev, 'password': e.target.value }))}
+                            placeholder='password' className='mt-3' />
+                        <SwitchField checked={targetAccount.it_works === 1 || targetAccount.it_works} name='It Works'
+                            onChange={(e) => setTargetAccount(prev => ({ ...prev, 'it_works': e.target.checked }))} />
                     </div>
                     <hr className='border-[#dfdfdf]' />
                     <div
@@ -62,7 +56,7 @@ export default function EditProfileDialog({ onCancel, id }) {
                             Cancel
                         </button>
                         <button disabled={isPending}
-                            className={`bg-(--primary-col) text-white flex items-center justify-center py-2 rounded-xl font-bold px-5 min-w-25`}>
+                            className={`bg-(--primary-col) text-white flex items-center justify-center py-2 rounded-xl font-bold px-5 min-w-25 shadow`}>
                             {isPending ?
                                 <LoadingProcess size='24' borderSize={4} />
                                 : 'Create'}
@@ -70,9 +64,10 @@ export default function EditProfileDialog({ onCancel, id }) {
                     </div>
                 </form>
             </div>
-            <Dialog show={statusDialog} icon={message ? 'check' : 'close'}
-                iconColor={message ? '#2abc75' : '#dc2727'}
-                title={message ? 'success' : 'failed'}
+            <Dialog show={statusDialog} icon={message === 'success' ? 'check' : 'close'}
+                iconColor={message === 'success' ? '#2abc75' : '#dc2727'}
+                title={message === 'success' ? 'Success' : 'Failed'}
+                content={message === 'success' ? null : message}
                 onCancel={() => setStatusDialog(false)} />
         </div>
     )
@@ -107,9 +102,9 @@ function SwitchField({ checked, onChange, name }) {
         <div
             className='p-3 bg-white flex border-2 border-[#e4e4e4] rounded-xl items-center justify-between mt-6'>
             <div>
-                Currently in use
+                It Works
                 <p className='text-xs text-[#5e758d]'>
-                    make if this profile used.
+                    Account is active and functional.
                 </p>
             </div>
             <SwitchInput name={name} checked={checked} onChange={onChange} />

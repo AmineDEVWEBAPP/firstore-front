@@ -1,9 +1,9 @@
 import { useActionState, useContext, useState } from "react"
-import LoadingProcess from "../../../../components/loadingProcess/loadingProcess"
-import Dialog from "../../../../components/dialog/dialog"
-import { ProfilesContext } from "../../../../../context/profilesContext"
-import ProfileServices from "../../../../../services/profile_services"
+import LoadingProcess from "../../../components/loadingProcess/loadingProcess"
+import Dialog from "../../../components/dialog/dialog"
+import { ProfilesContext } from "../../../../context/profilesContext"
 import { useLoaderData } from "react-router-dom"
+import reqres from "../../../../utils/reqres"
 
 export default function CreateProfileDialog({ onCancel, show }) {
     const { accounts } = useLoaderData()
@@ -13,20 +13,18 @@ export default function CreateProfileDialog({ onCancel, show }) {
 
     async function create(_, data) {
         const name = data.get('Profile Name')
-        const pinCode = parseInt(data.get('PIN Code'))
+        const pinCode = data.get('PIN Code')
         const paymentUrl = data.get('Payment Url')
         const used = data.get('used') === null ? false : data.get('used') === 'on' ? true : false
         const accountId = parseInt(data.get('Assign Account'))
         const payload = { name, pinCode, used, paymentUrl, accountId }
-        console.log(payload)
-        const res = await ProfileServices.create(payload)
+        const res = await reqres('profiles', 'POST', payload)
         setStatusDialog(true)
-        if (res.status === 'success') {
-            const newProfiles = await ProfileServices.getProfiles()
-            setProfiles(newProfiles)
-            return true
-        }
-        return false
+        console.log(data.get('PIN Code'))
+        if (res['status'] === 'failed') return res['error']
+        const newProfiles = await reqres('profiles', 'GET')
+        setProfiles(newProfiles)
+        return 'success'
     }
 
     return (
@@ -61,7 +59,7 @@ export default function CreateProfileDialog({ onCancel, show }) {
                             Cancel
                         </button>
                         <button disabled={isPending}
-                            className={`bg-(--primary-col) text-white flex items-center justify-center py-2 rounded-xl font-bold px-5 min-w-25`}>
+                            className={`bg-(--primary-col) text-white flex items-center justify-center py-2 rounded-xl font-bold px-5 min-w-25 shadow`}>
                             {isPending ?
                                 <LoadingProcess size='24' borderSize={4} />
                                 : 'Create'}
@@ -69,9 +67,10 @@ export default function CreateProfileDialog({ onCancel, show }) {
                     </div>
                 </form>
             </div>
-            <Dialog show={statusDialog} icon={message ? 'check' : 'close'}
-                iconColor={message ? '#2abc75' : '#dc2727'}
-                title={message ? 'success' : 'failed'}
+            <Dialog show={statusDialog} icon={message === 'success' ? 'check' : 'close'}
+                iconColor={message === 'success' ? '#2abc75' : '#dc2727'}
+                title={message === 'success' ? 'Success' : 'Failed'}
+                content={message === 'success' ? null : message}
                 onCancel={() => setStatusDialog(false)} />
         </div>
     )
@@ -92,7 +91,7 @@ function TextField({ label, placeholder, options, value, onChange, className, ty
         <label>
             <b>{label}</b>
         </label>
-        <select name={label}
+        <select name={label} required
             className='border-2 border-[#e4e4e4] bg-white rounded-xl p-3 mt-2'>
             {options.map(option => <option key={option.id} value={option.id}>
                 {option.email}

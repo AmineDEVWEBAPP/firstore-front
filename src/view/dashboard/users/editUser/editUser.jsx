@@ -1,12 +1,12 @@
-import { useLoaderData } from "react-router-dom";
-import OfferServices from "../../../../services/offer_services";
-import UserServices from "../../../../services/user_services";
+import { redirect, useLoaderData } from "react-router-dom";
 import UserForm from "../components/userForm";
+import reqres from "../../../../utils/reqres";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export async function initEditUser(data) {
     const id = parseInt(data['params']['id'])
-    const [offers, user] = await Promise.all([OfferServices.get(), UserServices.findById(id)])
+    const [offers, user] = await Promise.all([reqres('offers', 'GET'), reqres('users/' + id, 'GET')])
+    if (offers['status'] === 'failed' || user['status'] === 'failed') throw redirect('/notfound')
     return { offers, user }
 }
 export default function EditUser() {

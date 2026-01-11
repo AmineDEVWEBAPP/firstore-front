@@ -1,15 +1,16 @@
 import { useActionState, useState } from "react"
-import SwitchInput from "../../../../components/switchInput/switchInput"
-import LoadingProcess from "../../../../components/loadingProcess/loadingProcess"
-import OfferServices from "../../../../../services/offer_services"
-import Dialog from "../../../../components/dialog/dialog"
+import SwitchInput from "../../../components/switchInput/switchInput"
+import LoadingProcess from "../../../components/loadingProcess/loadingProcess"
+import Dialog from "../../../components/dialog/dialog"
+import reqres from "../../../../utils/reqres"
 
 export default function OfferForm({ initOffer }) {
     const [offer, setOffer] = useState(initOffer)
     const qualitys = ['Good', 'Great', 'Best']
     const resolutions = ['720p (HD)', '1080p (Full HD)', '4K (Ultra HD) + HDR']
-    const [devices, setDevices] = useState(new Set(['Android']))
+    const [devices, setDevices] = useState(new Set(initOffer ? offer['supported_devices'].split(', ') : ['Android']))
     const [message, formAction, isPending] = useActionState(saveOffer)
+
 
     async function saveOffer(_, data) {
         const name = data.get('Offer Name')
@@ -19,9 +20,8 @@ export default function OfferForm({ initOffer }) {
         const spatialAudio = data.get('Spatial Audio') === null ? false : true
         const maxDevices = parseFloat(data.get('Max Devices'))
         const maxDownloades = parseFloat(data.get('Max Downloads'))
-        console.log(offer.id)
 
-        const created = {
+        const payload = {
             name, price, quality, resolution,
             'haveSpatialAudio': spatialAudio,
             'maximumDevices': maxDevices,
@@ -29,9 +29,10 @@ export default function OfferForm({ initOffer }) {
             'maximumDownloadDevices': maxDownloades,
             'priceCurrency': 'MAD'
         }
-        const res = initOffer ? await OfferServices.update(initOffer.id, created) : await OfferServices.create(created)
-        if (res.status === 'success') return true
-        return false
+
+        const res = initOffer ? await reqres('offers/' + offer['id'], 'PUT', payload) : await reqres('offers', 'POST', payload)
+        if (res['status'] === 'failed') return res['error']
+        return 'success'
     }
 
 
@@ -116,13 +117,15 @@ export default function OfferForm({ initOffer }) {
                             <p>Save {initOffer ? 'Changes' : 'Offer'}</p></>)}
                 </button>
             </div>
-            {!isNaN(message) ? <Dialog icon={message ? 'check' : 'close'}
+            <Dialog icon={message === 'success' ? 'check' : 'close'}
                 confirmText='back' confirmColor='bg-(--primary-col)'
-                iconColor={message ? '#2abc75' : '#dc2727'}
-                title={message ? 'success' : 'failed'}
+                iconColor={message === 'success' ? '#2abc75' : '#dc2727'}
+                title={message === 'success' ? 'Success' : 'Failed'}
+                content={message === 'success' ? null : message}
                 onCancel={() => history.back()}
                 onConfirm={() => history.back()}
-            /> : null}
+                show={message !== undefined}
+            />
         </form>
     )
 

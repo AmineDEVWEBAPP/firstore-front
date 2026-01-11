@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom"
 import { useContext, useState } from "react"
-import Dialog from '../../../../components/dialog/dialog'
-import OfferServices from "../../../../../services/offer_services"
-import LoadingProcess from '../../../../components/loadingProcess/loadingProcess'
-import { OffersContext } from "../../../../../context/offersContext"
+import Dialog from '../../../components/dialog/dialog'
+import LoadingProcess from '../../../components/loadingProcess/loadingProcess'
+import { OffersContext } from "../../../../context/offersContext"
+import reqres from "../../../../utils/reqres"
 
 export default function OfferTable() {
     const { offers, setOffers } = useContext(OffersContext)
@@ -15,12 +15,12 @@ export default function OfferTable() {
 
     async function deleteOffer() {
         setLoadin(true)
-        const res = await OfferServices.delete(selectedOffer)
+        const res = await reqres('offers/' + selectedOffer, 'DELETE')
         setLoadin(false)
         setDeleteDialog(false)
-        setResStatus(res.status)
-        setTimeout(() => setResStatus(null), 1000)
-        if (res.status === 'failed') return
+        setResStatus(res)
+        setTimeout(() => setResStatus(null), 1500)
+        if (res['status'] === 'failed') return
         setOffers(offers => offers.filter(offer => offer.id !== selectedOffer))
     }
 
@@ -75,7 +75,12 @@ export default function OfferTable() {
             onCancel={() => setDeleteDialog(false)}
             onConfirm={() => deleteOffer()}
         /> : null}
-        <Dialog icon={resStatus === 'success' ? 'check' : 'close'} iconColor={resStatus === 'success' ? '#2abc75' : '#dc2727'} title={resStatus} show={resStatus} />
+        <Dialog icon={resStatus?.status === 'failed' ? 'close' : 'check'}
+            iconColor={resStatus?.status === 'failed' ? '#dc2727' : '#2abc75'}
+            title={resStatus?.status === 'failed' ? 'Failed' : 'Success'}
+            content={resStatus?.status === 'failed' ? resStatus['error'] : null}
+            show={resStatus}
+        />
     </>
     )
 }

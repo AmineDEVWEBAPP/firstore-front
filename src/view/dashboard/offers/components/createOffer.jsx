@@ -1,4 +1,4 @@
-import OfferForm from "../components/offerForm/offerForm";
+import OfferForm from "./offerForm";
 
 export default function CreateOffer() {
     return (<div className='p-10'>

@@ -1,13 +1,16 @@
-import { useLoaderData, useNavigate, useOutletContext } from "react-router-dom";
+import { redirect, useLoaderData, useNavigate, useOutletContext } from "react-router-dom";
 import ActionCard from "./components/actionCard/actionCard";
 import NewsCard from "./components/newsCard/newsCard";
-import UserServices from '../../../services/user_services'
-import ProfileServices from '../../../services/profile_services'
-import AccountServices from '../../../services/account_services'
+import reqres from "../../../utils/reqres";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export async function dashboardHomeinit() {
-    let [users, profiles, accounts] = await Promise.all([UserServices.getUsers(), ProfileServices.getProfiles(), AccountServices.getAccounts()])
+    const usersReq = reqres('users', 'GET')
+    const profilesReq = reqres('profiles', 'GET')
+    const accountsReq = reqres('accounts', 'GET')
+    let [users, profiles, accounts] = await Promise.all([usersReq, profilesReq, accountsReq])
+    const reqError = usersReq['status'] === 'failed' || profilesReq['status'] === 'failed' || accountsReq['status'] === 'failed'
+    if (reqError) throw redirect('/notfound')
     const losingUsers = users.filter(user => {
         const lastPay = new Date(user.last_pay_time)
         return lastPay.getTime() > new Date().getTime()

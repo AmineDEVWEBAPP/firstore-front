@@ -1,13 +1,15 @@
 import NewsCard from "./components/newsCard";
 import UsersTable from "./components/usersTable";
-import UserServices from '../../../services/user_services'
 import { UsersContext, UsersProvider } from "../../../context/usersContext";
 import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { redirect, useNavigate } from "react-router-dom";
+import reqres from "../../../utils/reqres";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export async function initUsers() {
-    const [users, news] = await Promise.all([UserServices.getUsers(), UserServices.news()])
+    const [users, news] = await Promise.all([reqres('users', 'GET'), reqres('users/news', 'GET')])
+    const reqError = users['status'] === 'failed' || news['status'] === 'failed'
+    if (reqError) throw redirect('/notfound')
     return { users, news }
 }
 
@@ -29,7 +31,7 @@ export default function Users() {
                 </div>
                 <button
                     onClick={() => navigate('create')}
-                    className='text-white bg-(--primary-col) font-bold flex items-center rounded-lg h-10 px-3' >
+                    className='text-white bg-(--primary-col) font-bold flex items-center rounded-lg h-10 px-3 shadow' >
                     <span className="material-symbols-outlined">
                         add
                     </span>

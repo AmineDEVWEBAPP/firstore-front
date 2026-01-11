@@ -1,6 +1,5 @@
 import { HomeContext, HomeProvider } from "../../context/homeContext";
 import { WhatsappIcon } from "../../config/constants";
-import OfferServices from "../../services/offer_services";
 import Footer from "../components/footer";
 import ConfermForm from "./components/confermCart/confermCart";
 import DisktopBody from "./components/disktopBody";
@@ -8,10 +7,13 @@ import Logo from "../components/logo";
 import PhoneBody from "./components/phoneBody";
 import { useContext } from "react";
 import { Helmet } from "react-helmet-async";
+import reqres from "../../utils/reqres";
+import { redirect } from "react-router-dom";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export async function initLanding() {
-    const [offers] = await Promise.all([OfferServices.get()])
+    const offers = await reqres('offers','GET')
+    if(offers['status']==='failed')throw redirect('/notfound')
     return { offers }
 }
 

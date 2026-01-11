@@ -7,6 +7,6 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   server: {
     host: true,
-    allowedHosts:['unsonantal-ali-overcensorious.ngrok-free.dev']
+    allowedHosts: ['unsonantal-ali-overcensorious.ngrok-free.dev']
   }
 })

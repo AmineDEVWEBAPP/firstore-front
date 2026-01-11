@@ -1,16 +1,15 @@
-import NewsCard from "./components/newsCard/newsCard";
-import OfferTable from "./components/offerTable/offerTable";
-import SearchInput from "./components/searchInput/searchInput";
-import OfferServices from "../../../services/offer_services";
+import NewsCard from "./components/newsCard";
+import OfferTable from "./components/offerTable";
+import SearchInput from "./components/searchInput";
 import OffersProvider, { OffersContext } from "../../../context/offersContext";
 import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { redirect, useNavigate } from "react-router-dom";
+import reqres from "../../../utils/reqres";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export async function offersInit() {
-    const offers = await OfferServices.get()
-    if (offers.status === 'failed' || offers.length === 0)
-        return { 'offers': [], 'bestSeller': [], 'offersWithAudio': [], 'offerWith4k': [] }
+    const offers = await reqres('offers', 'GET')
+    if (offers['status'] === 'failed') throw redirect('/notfound')
     return { offers }
 }
 
@@ -31,7 +30,7 @@ export default function Offers() {
             </div>
             <button
                 onClick={() => navigate('create')}
-                className='text-white bg-(--primary-col) font-bold flex items-center rounded-lg h-10 px-3'>
+                className='text-white bg-(--primary-col) font-bold flex items-center rounded-lg h-10 px-3 shadow'>
                 <span className="material-symbols-outlined">
                     add
                 </span>

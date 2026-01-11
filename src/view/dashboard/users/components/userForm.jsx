@@ -1,9 +1,8 @@
 import { useActionState, useEffect, useState } from "react"
 import { useLoaderData } from "react-router-dom"
 import LoadingProcess from '../../../components/loadingProcess/loadingProcess'
-import OfferServices from "../../../../services/offer_services"
-import UserServices from "../../../../services/user_services"
 import Dialog from "../../../components/dialog/dialog"
+import reqres from "../../../../utils/reqres"
 
 export default function UserForm({ initUser }) {
     const [user, setUser] = useState(initUser)
@@ -13,12 +12,13 @@ export default function UserForm({ initUser }) {
     const [isUpdating, setIsUpdating] = useState()
     const [message, formAction, isPending] = useActionState(createUser)
 
+
     useEffect(function () {
         let mounted = true
         async function fetchProfiles() {
             if (!mounted) return
             setIsUpdating(true)
-            const res = await OfferServices.getProfiles(selectedOffer, { available: initUser ? false : true })
+            const res = await reqres(`offers/${selectedOffer}/profiles/?available=${initUser ? false : true}`, 'GET')
             setIsUpdating(false)
             if (res['status'] === 'failed') return setProfiles([])
             setProfiles(res)
@@ -26,6 +26,7 @@ export default function UserForm({ initUser }) {
         fetchProfiles()
         return () => { mounted = false }
     }, [initUser, selectedOffer])
+
 
     async function createUser(_, data) {
         const profileId = parseInt(data.get('profile'))
@@ -39,17 +40,19 @@ export default function UserForm({ initUser }) {
             phone,
             offerId
         }
+
         if (!initUser) payload['type'] = 'whatsapp'
         if (initUser) payload['lastPayTime'] = lastPayTime.toISOString().slice(0, 19).replace("T", " ")
         if (initUser) {
             if (!isNaN(profileId)) payload['profileId'] = profileId
         } else payload['profileId'] = profileId
         email.length === 0 ? null : payload['email'] = email
-        console.log(payload)
-        const res = initUser ? await UserServices.update(user.id, payload) : await UserServices.create(payload)
-        if (res['status'] === 'success') return 'success'
-        return res['error']
+
+        const res = initUser ? await reqres('users/' + user['id'], 'PUT', payload) : await reqres('users', 'POST', payload)
+        if (res['status'] === 'failed') return res['error']
+        return 'success'
     }
+
 
     return (
         <form action={formAction}

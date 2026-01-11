@@ -1,9 +1,9 @@
 import { useContext, useState } from "react"
-import Dialog from '../../../../components/dialog/dialog'
-import LoadingProcess from '../../../../components/loadingProcess/loadingProcess'
-import AccountServices from "../../../../../services/account_services"
-import { AccountsContext } from "../../../../../context/accountsContext"
-import EditAccountDialog from "../editAccountDialog/editAccountDialog"
+import Dialog from '../../../components/dialog/dialog'
+import LoadingProcess from '../../../components/loadingProcess/loadingProcess'
+import { AccountsContext } from "../../../../context/accountsContext"
+import EditAccountDialog from "./editAccountDialog"
+import reqres from "../../../../utils/reqres"
 
 export default function AccountsTable() {
     const { accounts, setAccounts } = useContext(AccountsContext)
@@ -15,12 +15,12 @@ export default function AccountsTable() {
 
     async function deleteAccount() {
         setLoadin(true)
-        const res = await AccountServices.delete(selectedAccount)
+        const res = await reqres('accounts/' + selectedAccount, 'DELETE')
         setLoadin(false)
         setDeleteDialog(false)
-        setResStatus(res.status)
-        setTimeout(() => setResStatus(null), 1000)
-        if (res.status === 'failed') return
+        setResStatus(res)
+        setTimeout(() => setResStatus(null), 1500)
+        if (res['status'] === 'failed') return
         setAccounts(accounts => accounts.filter(account => account.id !== selectedAccount))
     }
 
@@ -72,8 +72,11 @@ export default function AccountsTable() {
             content='Are you sure you want to delete this Account? This action cannot be undone.'
             onCancel={() => setDeleteDialog(false)}
             onConfirm={() => deleteAccount()} />
-        <Dialog icon={resStatus === 'success' ? 'check' : 'close'} show={resStatus}
-            iconColor={resStatus === 'success' ? '#2abc75' : '#dc2727'} />
+        <Dialog
+            icon={resStatus?.status === 'failed' ? 'close' : 'check'} show={resStatus}
+            iconColor={resStatus?.status === 'failed' ? '#dc2727' : '#2abc75'}
+            title={resStatus?.status === 'failed' ? 'Failed' : 'Success'}
+            content={resStatus?.status === 'failed' ? resStatus['error'] : null} />
         {editDialog ? <EditAccountDialog onCancel={() => setEditDialog(false)} id={selectedAccount} /> : null}
     </>
     )

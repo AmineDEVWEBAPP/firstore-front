@@ -2,9 +2,9 @@ import { useContext, useState } from "react";
 import Dialog from '../../../components/dialog/dialog'
 import ActionDialog from './actionDialog'
 import { UsersContext } from "../../../../context/usersContext";
-import UserServices from '../../../../services/user_services'
 import LoadingProcess from '../../../components/loadingProcess/loadingProcess'
 import { useNavigate } from "react-router-dom";
+import reqres from "../../../../utils/reqres";
 
 export default function UsersTable() {
     const { users, setUsers } = useContext(UsersContext)
@@ -15,26 +15,28 @@ export default function UsersTable() {
     const navigate = useNavigate()
     const [loadingEmailDialog, setLoadingEmailDialog] = useState(false)
 
+
     async function deleteUser() {
         setLoading(true)
-        const res = await UserServices.delete(selected)
+        const res = await reqres('users/' + selected, 'DELETE')
         setLoading(false)
         setDeleteDialog(false)
-        if (res['status'] === 'success')
-            setResStatus(res['status'])
-        else setResStatus(res['error'])
+        if (res['status'] === 'failed')
+            setResStatus(res['error'])
+        else setResStatus('success')
         setTimeout(() => setResStatus(null), 1500)
-        if (res['status'] === 'success')
-            setUsers(users.filter(user => user.id != selected))
+        if (res['status'] === 'failed') return
+        setUsers(users.filter(user => user.id != selected))
     }
+
 
     async function sendEmail() {
         setLoadingEmailDialog(true)
-        const res = await UserServices.sendEmail(selected)
+        const res = await reqres(`users/${selected}/notice/email`, 'POST')
         setLoadingEmailDialog(false)
-        if (res['status'] === 'success')
-            setResStatus(res['status'])
-        else setResStatus(res['error'])
+        if (res['status'] === 'failed')
+            setResStatus(res['error'])
+        else setResStatus('success')
         setTimeout(() => setResStatus(null), 1500)
     }
 

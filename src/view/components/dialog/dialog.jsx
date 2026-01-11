@@ -30,7 +30,7 @@ export default function Dialog({ icon, iconColor, title, content, cancelText, co
                     </button> : null}
                     {confirmText ? <button type='button'
                         onClick={onConfirm}
-                        className={`${confirmColor} text-white flex items-center w-full justify-center py-2 rounded-xl font-bold px-5`}>
+                        className={`${confirmColor} text-white flex items-center w-full justify-center py-2 rounded-xl font-bold px-5 shadow`}>
                         {confirmText}
                     </button> : null}
                 </div> : null}
