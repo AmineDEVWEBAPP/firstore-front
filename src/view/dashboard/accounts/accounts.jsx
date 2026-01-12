@@ -27,7 +27,7 @@ export default function Accounts() {
                         <h1 className='text-lg sm:text-2xl md:text-3xl tracking-tight text-[#101418] font-bold'>
                             Accounts Management
                         </h1>
-                        <p className='mt-1 text-xs sm:text-sm md:text-base text-[#5e758d]'>
+                        <p className='mt-1 text-xs sm:text-sm text-[#5e758d]'>
                             Manage your digital product inventory.
                             <span className='hidden md:inline'> Add new accounts, verify status.</span>
                         </p>
