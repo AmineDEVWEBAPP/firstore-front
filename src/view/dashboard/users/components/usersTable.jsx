@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import Dialog from '../../../components/dialog/dialog'
+import Dialog from '../../../components/dialog'
 import ActionDialog from './actionDialog'
 import { UsersContext } from "../../../../context/usersContext";
 import LoadingProcess from '../../../components/loadingProcess/loadingProcess'

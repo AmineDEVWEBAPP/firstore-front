@@ -2,7 +2,7 @@ import { useActionState, useContext, useState } from 'react'
 import './style.css'
 import LoadingProcess from '../../../components/loadingProcess/loadingProcess'
 import { HomeContext } from '../../../../context/homeContext'
-import Dialog from '../../../components/dialog/dialog'
+import Dialog from '../../../components/dialog'
 import reqres from '../../../../utils/reqres'
 
 export default function ConfermForm() {

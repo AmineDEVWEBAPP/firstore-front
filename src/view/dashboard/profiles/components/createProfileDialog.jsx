@@ -1,6 +1,6 @@
 import { useActionState, useContext, useState } from "react"
 import LoadingProcess from "../../../components/loadingProcess/loadingProcess"
-import Dialog from "../../../components/dialog/dialog"
+import Dialog from "../../../components/dialog"
 import { ProfilesContext } from "../../../../context/profilesContext"
 import { useLoaderData } from "react-router-dom"
 import reqres from "../../../../utils/reqres"

@@ -1,7 +1,7 @@
 import { useActionState, useEffect, useState } from "react"
 import { useLoaderData } from "react-router-dom"
 import LoadingProcess from '../../../components/loadingProcess/loadingProcess'
-import Dialog from "../../../components/dialog/dialog"
+import Dialog from "../../../components/dialog"
 import reqres from "../../../../utils/reqres"
 
 export default function UserForm({ initUser }) {

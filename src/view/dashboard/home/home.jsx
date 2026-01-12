@@ -2,6 +2,8 @@ import { redirect, useLoaderData, useNavigate, useOutletContext } from "react-ro
 import ActionCard from "./components/actionCard/actionCard";
 import NewsCard from "./components/newsCard/newsCard";
 import reqres from "../../../utils/reqres";
+import DrawerBtn from '../../components/drawerBtn'
+import { showSideBar } from "../../../utils/sideBarController";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export async function dashboardHomeinit() {
@@ -25,15 +27,19 @@ export default function DashboardHome() {
     const { admin } = useOutletContext()
     return (<div
         className='flex flex-col p-10'>
-        <header>
-            <b
-                className='text-3xl tracking-tight text-[#101418]'>
-                Welcome back, {admin.name}
-            </b>
-            <p
-                className='mt-1 text-[#5e758d]'>
-                Here's what's happening with your platform.
-            </p>
+        <header
+            className='flex'>
+            <DrawerBtn onClick={showSideBar}/>
+            <div>
+                <b
+                    className='text-3xl tracking-tight text-[#101418]'>
+                    Welcome back, {admin.name}
+                </b>
+                <p
+                    className='mt-1 text-[#5e758d]'>
+                    Here's what's happening with your platform.
+                </p>
+            </div>
         </header>
         {/* news */}
         <section

@@ -1,5 +1,5 @@
 import { useContext, useState } from "react"
-import Dialog from '../../../components/dialog/dialog'
+import Dialog from '../../../components/dialog'
 import LoadingProcess from '../../../components/loadingProcess/loadingProcess'
 import { AccountsContext } from "../../../../context/accountsContext"
 import EditAccountDialog from "./editAccountDialog"

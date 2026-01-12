@@ -1,7 +1,7 @@
 import { useActionState, useState } from "react"
 import SwitchInput from "../../../components/switchInput/switchInput"
 import LoadingProcess from "../../../components/loadingProcess/loadingProcess"
-import Dialog from "../../../components/dialog/dialog"
+import Dialog from "../../../components/dialog"
 import reqres from "../../../../utils/reqres"
 
 export default function OfferForm({ initOffer }) {
