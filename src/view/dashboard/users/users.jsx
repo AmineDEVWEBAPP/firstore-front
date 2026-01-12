@@ -4,6 +4,8 @@ import { UsersContext, UsersProvider } from "../../../context/usersContext";
 import { useContext } from "react";
 import { redirect, useNavigate } from "react-router-dom";
 import reqres from "../../../utils/reqres";
+import { showSideBar } from "../../../utils/sideBarController";
+import DrawerBtn from "../../components/drawerBtn";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export async function initUsers() {
@@ -17,43 +19,48 @@ export default function Users() {
     const navigate = useNavigate()
 
     return (<UsersProvider>
-        <div className='px-10 pt-10 bg-[#f8fbff] pb-7 border-b-2 border-[#e4e4e4]'>
-            <header
-                className='flex justify-between items-end'>
-                <div>   <b
-                    className='text-3xl tracking-tight text-[#101418]'>
-                    Users Management
-                </b>
-                    <p
-                        className='mt-1 text-[#5e758d]'>
-                        Manage Registered users, assign account, and track subscriptions.
-                    </p>
+        <div className='px-4 sm:px-6 md:px-10 pt-6 sm:pt-10 bg-[#f8fbff] pb-6 sm:pb-7 border-b-2 border-[#e4e4e4]'>
+            <header className='flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4'>
+                <div className='flex items-center gap-4'>
+                    <DrawerBtn onClick={showSideBar} />
+                    <div>
+                        <h1 className='text-xl sm:text-2xl md:text-3xl tracking-tight text-[#101418] font-bold'>
+                            Users Management
+                        </h1>
+                        <p className='mt-1 text-xs sm:text-sm text-[#5e758d] flex gap-x-1'>
+                            Manage registered users, assign accounts<p className='hidden md:block'>, and track subscriptions.</p>
+                        </p>
+                    </div>
                 </div>
                 <button
                     onClick={() => navigate('create')}
-                    className='text-white bg-(--primary-col) font-bold flex items-center rounded-lg h-10 px-3 shadow' >
-                    <span className="material-symbols-outlined">
+                    className='text-white bg-(--primary-col) font-bold flex items-center justify-center rounded-lg h-10 px-3 sm:px-4 gap-2 shadow max-w-40'>
+                    <span className="material-symbols-outlined text-lg">
                         add
                     </span>
-                    Create New Profile
+                    <span>Create New</span>
                 </button>
-            </header >
+            </header>
             <NewsSection />
         </div>
-        <div className='p-10 pt-7'>
-            <section className='flex gap-6 items-center'>
+        <div className='px-4 sm:px-6 md:px-10 py-6 sm:pt-7'>
+            <section className='flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6'>
                 <TypeFilter selected='all' />
-                <SearchInput />
+                <div className='flex-1'>
+                    <SearchInput />
+                </div>
                 <button
-                    className='text-[#5e758d] flex  items-center text-nowrap gap-2 font-bold text-[15px]'>
+                    className='text-[#5e758d] flex items-center whitespace-nowrap gap-2 font-bold text-[15px]'>
                     <span className="material-symbols-outlined">
                         filter_list
                     </span>
                     More Filters
                 </button>
             </section>
-            <div className='mt-7 bg-white shadow border-[#f0f2f5] border h-145 rounded-lg'>
-                <UsersTable />
+            <div className='mt-6 bg-white shadow border-[#f0f2f5] border rounded-lg overflow-hidden'>
+                <div className='w-full overflow-x-auto'>
+                    <UsersTable />
+                </div>
             </div>
         </div>
     </UsersProvider>)
@@ -63,7 +70,7 @@ function NewsSection() {
     const { news } = useContext(UsersContext)
 
     return <section
-        className='mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10'>
+        className='mt-5 lg:mt-10 grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 lg:gap-10'>
         <NewsCard title={news.count} desc='TOTAL USERS' icon='group' color='#047dff' />
         <NewsCard title={news.need_payment} desc='NEED PAYMENT' icon='payments' color='#ff6f03' />
         <NewsCard title={news.whatsapp_count} desc='WHATSAPP USERS' icon='chat' color='#15a349' />

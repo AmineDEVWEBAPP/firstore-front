@@ -46,7 +46,7 @@ export default function UsersTable() {
 
         const rect = actionBtn.getBoundingClientRect()
         const offsetTop = rect.top + window.scrollY;
-        const offsetLeft = rect.left + window.scrollX;
+        const offsetLeft = rect.left + window.scrollX-100;
 
         actionDialog.style.transform =
             `translate(${offsetLeft}px, ${offsetTop}px)`
@@ -54,46 +54,47 @@ export default function UsersTable() {
     }
 
     return (<>
-        <table
-            className='w-full bg-white text-left'>
-            <thead
-                className='bg-[#f8fafc] h-13 text-md text-[#5e758d] border-t border-b border-t-[#dae0e7] border-b-[#e9edf3]'>
-                <tr
-                    className='[&>th]:whitespace-nowrap [&>th]:tracking-wider [&>th]:py-4 [&>th]:px-6'>
-                    <th>DETAILS</th>
-                    <th>TYPE</th>
-                    <th>SUBSCRIPTION</th>
-                    <th>ACCOUNT ACCESS</th>
-                    <th>PROFILE</th>
-                    <th>LAST PAYMENT</th>
-                    <th>ACTIONS</th>
-                </tr>
-            </thead>
-            <tbody
-                className='  divide-y divide-[#dae0e7] '>
-                {users.map(user => (<tr key={user.id}
-                    className='[&>td]:px- group [&>td]:py-4 [&>td]:px-6 [&>td]:align-top'>
-                    <td><Details data={user} /></td>
-                    <td><Type type={user['type'].toLowerCase()} /></td>
-                    <td><b>{user.offer_name}</b></td>
-                    <td><AccountDetails data={user} /></td>
-                    <td><ProfileDetails data={user} /></td>
-                    <td><LastPay time={user.last_pay_time} /></td>
-                    <td className='flex ml-10'>
-                        <button id={user.id}
-                            onClick={function () {
-                                setSelected(user.id)
-                                showActionDialog(user.id)
-                            }}
-                            className='bg-white flex p-1 rounded-full'>
-                            <span className="material-symbols-outlined">
-                                more_vert
-                            </span>
-                        </button>
-                    </td>
-                </tr>))}
-            </tbody>
-        </table>
+        <div className='w-full bg-white text-left overflow-x-auto'>
+            <table className='min-w-180 w-full'>
+                <thead className='bg-[#f8fafc] text-md text-[#5e758d] border-t border-b border-t-[#dae0e7] border-b-[#e9edf3]'>
+                    <tr className='whitespace-nowrap tracking-wider'>
+                        <th className='py-3 px-4 sm:py-4 sm:px-6'>DETAILS</th>
+                        <th className='py-3 px-4 sm:py-4 sm:px-6'>TYPE</th>
+                        <th className='py-3 px-4 sm:py-4 sm:px-6'>SUBSCRIPTION</th>
+                        <th className='py-3 px-4 sm:py-4 sm:px-6'>ACCOUNT ACCESS</th>
+                        <th className='py-3 px-4 sm:py-4 sm:px-6'>PROFILE</th>
+                        <th className='py-3 px-4 sm:py-4 sm:px-6'>LAST PAYMENT</th>
+                        <th className='py-3 px-4 sm:py-4 sm:px-6'>ACTIONS</th>
+                    </tr>
+                </thead>
+                <tbody className='divide-y divide-[#dae0e7]'>
+                    {users.map(user => (
+                        <tr key={user.id} className='group'>
+                            <td className='py-3 px-4 sm:py-4 sm:px-6 align-top'><Details data={user} /></td>
+                            <td className='py-3 px-4 sm:py-4 sm:px-6 align-top'><Type type={user['type'].toLowerCase()} /></td>
+                            <td className='py-3 px-4 sm:py-4 sm:px-6 align-top'><strong>{user.offer_name}</strong></td>
+                            <td className='py-3 px-4 sm:py-4 sm:px-6 align-top'><AccountDetails data={user} /></td>
+                            <td className='py-3 px-4 sm:py-4 sm:px-6 align-top'><ProfileDetails data={user} /></td>
+                            <td className='py-3 px-4 sm:py-4 sm:px-6 align-top'><LastPay time={user.last_pay_time} /></td>
+                            <td className='py-3 px-4 sm:py-4 sm:px-6 align-top'>
+                                <div className='flex items-center'>
+                                    <button id={user.id}
+                                        onClick={function () {
+                                            setSelected(user.id)
+                                            showActionDialog(user.id)
+                                        }}
+                                        className='bg-white flex p-1 rounded-full'>
+                                        <span className="material-symbols-outlined">
+                                            more_vert
+                                        </span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
         <ActionDialog
             onDelete={() => setDeleteDialog(true)}
             onEdit={() => navigate(`${selected}/edit`)}

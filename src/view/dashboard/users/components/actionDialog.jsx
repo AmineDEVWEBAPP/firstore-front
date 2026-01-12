@@ -11,14 +11,13 @@ export default function ActionDialog({ onEdit, onEmail, onDelete, hidden }) {
         function handleClickOutside(e) {
             if (ref.current && !ref.current.contains(e.target)) hiddenActionDialog()
         }
-
         window.addEventListener("mousedown", handleClickOutside);
-        return document.removeEventListener("mousedown", handleClickOutside)
+        return () => window.removeEventListener("mousedown", handleClickOutside)
     })
 
     return (
         <div id='actionDialog' ref={ref}
-            className='fixed rounded-xl border-2 border-[#dae0e7] py-3 bg-white top-0 -left-30 hidden'>
+            className='fixed rounded-xl border-2 border-[#dae0e7] py-3 bg-white top-0 left-0 hidden z-1 min-w-40 sm:min-w-55'>
             <Action icon='edit' text='Edit User' onClick={onEdit} hidden={hidden()?.includes('edit')} />
             <hr className='border-none my-2' />
             <Action icon='forward_to_inbox' text='Email Notice' onClick={onEmail} hidden={hidden()?.includes('email')} />

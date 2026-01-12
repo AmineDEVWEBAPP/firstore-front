@@ -105,13 +105,12 @@ export default function UserForm({ initUser }) {
                     className='mt-3 bg-[#f8fafc] border-2 border-[#e3e8f0] rounded-xl p-4'>
                     <div
                         className='flex items-center justify-between'>
-                        <div className='flex items-center gap-5'>
-                            <b
-                                className='text-[19px]'
-                            >Profiles linked to this Selected Offer</b>
+                        <div className='flex items-center gap-2 lg:gap-5'>
+                            <b className='text-xs lg:text-[19px] flex gap-x-1'
+                            >Profiles linked <p className='hidden lg:block'>to this Selected Offerto this Selected Offer</p></b>
                             {isUpdating ? <UpdatingProcess /> : null}
                         </div>
-                        <p className='text-[#808ea0]'>
+                        <p className='text-[#808ea0] text-xs lg:text-md'>
                             Select one profile
                         </p>
                     </div>
@@ -193,9 +192,9 @@ function TextField({ label, placeholder, options, className, value, type = 'text
 function UpdatingProcess() {
     return (
         <div
-            className='text-md border-2 border-[#c3dffe] rounded-full flex items-center gap-2 text-(--primary-col) font-bold px-3'>
+            className='border-2 border-[#c3dffe] rounded-full flex items-center gap-2 text-(--primary-col) font-bold px-3'>
             <LoadingProcess size='17' borderSize={3} />
-            Updating...
+            <p className='hidden lg:block'>Updating...</p>
         </div>
     )
 }
