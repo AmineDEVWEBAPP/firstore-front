@@ -15,7 +15,7 @@ export async function offersInit() {
     return { offers }
 }
 
-export default function Offers() {
+export default function Offers() { 
     const navigate = useNavigate()
     return (<div className='p-4 sm:p-6 md:p-8 lg:p-10 w-full max-w-7xl mx-auto'>
         <header className='flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4'>

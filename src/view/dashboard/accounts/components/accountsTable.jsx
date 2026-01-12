@@ -25,46 +25,41 @@ export default function AccountsTable() {
     }
 
     return (<>
-        <table
-            className='w-full bg-white text-left'>
-            <thead
-                className='bg-[#f8fafc] h-13 text-md text-[#5e758d] border-t border-b border-t-[#dae0e7] border-b-[#e9edf3]'>
-                <tr
-                    className='[&>th]:whitespace-nowrap [&>th]:px-8'>
-                    <th>EMAIL</th>
-                    <th>PASSWORD</th>
-                    <th>OFFER</th>
-                    <th>CREATED AT</th>
-                    <th>ACTIVE</th>
-                    <th className='text-right'>ACTIONS</th>
-                </tr>
-            </thead>
-            <tbody
-                className='[&>tr]:h-15 [&>tr]:border-b [&>tr]:border-[#e9edf3]'>
-                {accounts?.map(account => (<tr
-                    key={account.id}
-                    className='[&>td]:px-8'>
-                    <td className='font-bold'>{account.email}</td>
-                    <td className='font-bold'>{account.password}</td>
-                    <td className='flex pt-4.5'>{account.offer_name}</td>
-                    <td className="text-[#5f758d]">{new Date(account.created_at).toLocaleDateString()}</td>
-                    <td className='px-13!'>{getStatus(account.it_works === 1)}</td>
-                    <td className='text-right'>
-                        <ActionButton icon='edit'
-                            className='mr-2 text-(--primary-col)'
-                            onClick={() => {
-                                setSelectedAccount(account.id)
-                                setEditDialog(true)
-                            }} />
-                        <ActionButton icon='delete' className='text-(--secondary-col)'
-                            onClick={() => {
-                                setSelectedAccount(account.id)
-                                setDeleteDialog(true)
-                            }} />
-                    </td>
-                </tr>))}
-            </tbody>
-        </table>
+        <div className='overflow-x-auto'>
+            <table className='w-full min-w-[720px] bg-white text-left'>
+                <thead className='bg-[#f8fafc] h-13 text-md text-[#5e758d] border-t border-b border-t-[#dae0e7] border-b-[#e9edf3]'>
+                    <tr className='[&>th]:whitespace-nowrap [&>th]:px-4 md:[&>th]:px-8'>
+                        <th>EMAIL</th>
+                        <th>PASSWORD</th>
+                        <th>OFFER</th>
+                        <th>CREATED AT</th>
+                        <th>ACTIVE</th>
+                        <th className='text-right'>ACTIONS</th>
+                    </tr>
+                </thead>
+                <tbody className='[&>tr]:h-15 [&>tr]:border-b [&>tr]:border-[#e9edf3]'>
+                    {accounts?.map(account => (
+                        <tr key={account.id} className='[&>td]:px-4 md:[&>td]:px-8'>
+                            <td className='font-bold max-w-[220px] truncate'>{account.email}</td>
+                            <td className='font-bold max-w-[140px] truncate'>{account.password}</td>
+                            <td className='flex pt-4.5 max-w-[160px] truncate'>{account.offer_name}</td>
+                            <td className="text-[#5f758d]">{new Date(account.created_at).toLocaleDateString()}</td>
+                            <td className='text-center md:text-left'>{getStatus(account.it_works === 1)}</td>
+                            <td className='text-right'>
+                                <ActionButton icon='edit' className='mr-2 text-(--primary-col)' onClick={() => {
+                                    setSelectedAccount(account.id)
+                                    setEditDialog(true)
+                                }} />
+                                <ActionButton icon='delete' className='text-(--secondary-col)' onClick={() => {
+                                    setSelectedAccount(account.id)
+                                    setDeleteDialog(true)
+                                }} />
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
         <Dialog icon='warning' iconColor='#dc2727'
             title='Delete Account' confirmColor='bg-red-700'
             show={deleteDialog}

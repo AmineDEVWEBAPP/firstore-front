@@ -25,23 +25,15 @@ export default function EditAccountDialog({ onCancel, id }) {
     }
 
     return (
-        <div
-            onClick={onCancel}
-            className='flex w-screen bg-[rgb(0,0,0,0.5)] backdrop-blur-xs h-screen fixed bottom-0 right-0 z-1 items-center justify-center'>
-            <div onClick={(e) => e.stopPropagation()}
-                className='bg-[#f0f7ff] rounded-xl w-140'>
-                <form action={formAction}
-                    className='flex flex-col'>
-                    <div className='p-6'>
-                        <b className='text-xl'>
-                            Edit Account
-                        </b>
-                        <p className='text-[#5e758d]'>
-                            Update existing credentials and operational status.
-                        </p>
+        <div onClick={onCancel} className='flex w-screen bg-[rgb(0,0,0,0.5)] backdrop-blur-xs h-screen fixed inset-0 z-10 items-center justify-center p-4'>
+            <div onClick={(e) => e.stopPropagation()} className='bg-[#f0f7ff] rounded-xl w-full max-w-md'>
+                <form action={formAction} className='flex flex-col'>
+                    <div className='p-4 md:p-6'>
+                        <h2 className='text-lg font-bold'>Edit Account</h2>
+                        <p className='text-sm text-[#5e758d]'>Update existing credentials and operational status.</p>
                         <TextField label='Email Address' type='email' value={targetAccount.email}
                             onChange={(e) => setTargetAccount(prev => ({ ...prev, 'email': e.target.value }))}
-                            placeholder='account@example.com' className='mt-6' />
+                            placeholder='account@example.com' className='mt-4' />
                         <TextField label='New Password' value={targetAccount.password}
                             onChange={(e) => setTargetAccount(prev => ({ ...prev, 'password': e.target.value }))}
                             placeholder='password' className='mt-3' />
@@ -49,17 +41,10 @@ export default function EditAccountDialog({ onCancel, id }) {
                             onChange={(e) => setTargetAccount(prev => ({ ...prev, 'it_works': e.target.checked }))} />
                     </div>
                     <hr className='border-[#dfdfdf]' />
-                    <div
-                        className='bg-[#f8fbff] p-6 items-center justify-end gap-6 flex rounded-b-xl'>
-                        <button type='button' onClick={onCancel}
-                            className='flex items-center justify-center py-2 rounded-xl font-bold px-5'>
-                            Cancel
-                        </button>
-                        <button disabled={isPending}
-                            className={`bg-(--primary-col) text-white flex items-center justify-center py-2 rounded-xl font-bold px-5 min-w-25 shadow`}>
-                            {isPending ?
-                                <LoadingProcess size='24' borderSize={4} />
-                                : 'Create'}
+                    <div className='bg-[#f8fbff] p-4 md:p-6 flex flex-col sm:flex-row items-center sm:justify-end gap-3 sm:gap-6 rounded-b-xl'>
+                        <button type='button' onClick={onCancel} className='w-full sm:w-auto flex items-center justify-center py-2 rounded-xl font-bold px-5'>Cancel</button>
+                        <button disabled={isPending} className={`bg-(--primary-col) text-white flex items-center justify-center py-2 rounded-xl font-bold px-5 min-w-25 shadow w-full sm:w-auto`}>
+                            {isPending ? <LoadingProcess size='24' borderSize={4} /> : 'Save'}
                         </button>
                     </div>
                 </form>
@@ -76,7 +61,7 @@ export default function EditAccountDialog({ onCancel, id }) {
 function TextField({ label, placeholder, options, value, onChange, className, type = 'text' }) {
     if (!options) return (<div
         className={`${className} flex flex-col w-full`}>
-        <label for={label}>
+        <label htmlFor={label}>
             <b>{label}</b>
         </label>
         <input id={label} type={type} name={label} value={value}
