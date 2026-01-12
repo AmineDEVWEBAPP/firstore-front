@@ -39,18 +39,10 @@ export default function OfferForm({ initOffer }) {
     return (
         <form action={formAction}
             className='w-full bg-white shadow rounded-xl border border-[#f0f2f5] flex flex-col'>
-            <div
-                className='p-6'>
-                <div
-                    className='flex gap-2 font-bold text-xl'>
-                    <span
-                        style={{
-                            'fontSize': '33px'
-                        }}
-                        className="material-symbols-outlined text-(--primary-col)">
-                        edit_note
-                    </span>
-                    Basic Details
+            <div className='p-4 md:p-6'>
+                <div className='flex gap-2 items-center'>
+                    <span style={{ fontSize: 28 }} className="material-symbols-outlined text-(--primary-col)">edit_note</span>
+                    <h2 className='font-bold text-lg md:text-xl'>Basic Details</h2>
                 </div>
                 <div
                     className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mt-6'>
@@ -64,19 +56,10 @@ export default function OfferForm({ initOffer }) {
                         onChange={(e) => setOffer(prev => ({ ...prev, 'quality': e.target.value }))}
                         label='Quality Tier' options={qualitys} />
                 </div>
-                <hr className='my-7 border-[#ececec]' />
-                <div
-                    className='flex text-xl items-center gap-2'>
-                    <span
-                        style={{
-                            'fontSize': '13px'
-                        }}
-                        className="material-symbols-outlined bg-(--primary-col) text-white px-1 py-0.5 rounded-sm">
-                        cloud
-                    </span>
-                    <b>
-                        Technical Specifications
-                    </b>
+                <hr className='my-6 border-[#ececec]' />
+                <div className='flex items-center gap-2'>
+                    <span style={{ fontSize: 13 }} className="material-symbols-outlined bg-(--primary-col) text-white px-1 py-0.5 rounded-sm">cloud</span>
+                    <h3 className='font-semibold text-base'>Technical Specifications</h3>
                 </div>
                 <div
                     className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mt-6'>
@@ -90,8 +73,7 @@ export default function OfferForm({ initOffer }) {
                         value={offer?.maximum_download_devices}
                         onChange={(e) => setOffer(prev => ({ ...prev, 'maximum_download_devices': e.target.value }))} />
                 </div>
-                <div
-                    className='grid grid-cols-1 lg:grid-cols-3 gap-6'>
+                <div className='grid grid-cols-1 lg:grid-cols-3 gap-6'>
                     <SwitchField />
                     <div className='col-span-2'>
                         <DevicesField devices={devices} />
@@ -102,19 +84,11 @@ export default function OfferForm({ initOffer }) {
                     </div>
                 </div>
             </div>
-            <div
-                className='border-t border-[#e6e3e3] flex items-center justify-end bg-[#f9fafb] h-35 gap-10 px-6'>
-                <button type='button' onClick={() => history.back()}
-                    className='bg-white border border-[#e4e4e4] shadow rounded-md py-2 px-4 font-bold'>
-                    Cancel
-                </button>
-                <button
-                    className='bg-(--primary-col) shadow rounded-md py-2 px-4 text-white flex font-bold gap-1 text-nowrap'>
-                    {isPending ? <LoadingProcess size='21' borderSize='4' className='mx-10 my-0.5' /> :
-                        (<><span class="material-symbols-outlined">
-                            save
-                        </span>
-                            <p>Save {initOffer ? 'Changes' : 'Offer'}</p></>)}
+            <div className='border-t border-[#e6e3e3] flex flex-col sm:flex-row items-center sm:justify-end bg-[#f9fafb] gap-4 sm:gap-10 px-4 py-4'>
+                <button type='button' onClick={() => history.back()} className='bg-white border border-[#e4e4e4] shadow rounded-md py-2 px-4 font-bold'>Cancel</button>
+                <button className='bg-(--primary-col) shadow rounded-md py-2 px-4 text-white flex items-center font-bold gap-2'>
+                    {isPending ? <LoadingProcess size='21' borderSize='4' className='mx-2 my-0.5' /> : (<><span className="material-symbols-outlined">save</span>
+                        <span>Save {initOffer ? 'Changes' : 'Offer'}</span></>)}
                 </button>
             </div>
             <Dialog icon={message === 'success' ? 'check' : 'close'}

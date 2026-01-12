@@ -67,9 +67,13 @@ export default function Sidebare() {
 }
 
 function NavButton({ icon, name, page, className }) {
+    const mediaQuery = window.matchMedia('(min-width: 1024px)');
+
     return (
         <NavLink
-            to={page}
+            to={page} onClick={function () {
+                if (!mediaQuery['matches']) hiddenSideBar()
+            }}
             className={({ isActive }) => `${className} flex items-center w-full p-2 rounded-md gap-x-2 ${isActive ? 'text-(--primary-col) bg-blue-100' : 'text-[#384655] bg-white hover:bg-blue-50'} min-w-40`}>
             <span className="material-symbols-outlined">
                 {icon}

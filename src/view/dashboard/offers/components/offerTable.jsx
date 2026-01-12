@@ -25,50 +25,47 @@ export default function OfferTable() {
     }
 
     return (<>
-        <table
-            className='w-full bg-white text-left'>
-            <thead
-                className='bg-[#f8fafc] h-13 text-md text-[#5e758d] border-t border-b border-t-[#dae0e7] border-b-[#e9edf3]'>
-                <tr
-                    className='[&>th]:whitespace-nowrap [&>th]:px-8'>
-                    <th>NAME</th>
-                    <th>PRICE</th>
-                    <th>QUALITY</th>
-                    <th>RESOLUTION</th>
-                    <th>SPATIAL AUDIO</th>
-                    <th className='text-right'>ACTIONS</th>
-                </tr>
-            </thead>
-            <tbody
-                className='[&>tr]:h-15 [&>tr]:border-b [&>tr]:border-[#e9edf3]'>
-                {offers?.map(offer => (<tr
-                    key={offer.id}
-                    className='[&>td]:px-8'>
-                    <td className='font-bold'>{offer.name}</td>
-                    <td className='font-bold'>{offer.price} {offer.price_currency}</td>
-                    <td className='flex pt-4.5'><p
-                        className='px-4 rounded-full'
-                        style={{
-                            'color': getQualityCol(offer.quality),
-                            'backgroundColor': `${getQualityCol(offer.quality)}30`
-                        }}
-                    >{offer.quality}</p></td>
-                    <td className="text-[#5f758d]"
-                    >{offer.resolution}</td>
-                    <td className='px-20!'>
-                        {getVerification(offer.have_spatial_audio === 1)}
-                    </td>
-                    <td
-                        className='text-right'>
-                        <ActionButton icon='edit' className='mr-2 text-(--primary-col)' onClick={() => navigate(`${offer.id}/edit`)} />
-                        <ActionButton icon='delete' className='text-(--secondary-col)' onClick={() => {
-                            setDeleteDialog(true)
-                            setSelectedOffer(offer.id)
-                        }} />
-                    </td>
-                </tr>))}
-            </tbody>
-        </table>
+        <div className='overflow-x-auto'>
+            <table
+                className='w-full min-w-[720px] bg-white text-left'>
+                <thead
+                    className='bg-[#f8fafc] h-13 text-md text-[#5e758d] border-t border-b border-t-[#dae0e7] border-b-[#e9edf3]'>
+                    <tr
+                        className='[&>th]:whitespace-nowrap [&>th]:px-4 md:[&>th]:px-8'>
+                        <th>NAME</th>
+                        <th>PRICE</th>
+                        <th>QUALITY</th>
+                        <th>RESOLUTION</th>
+                        <th>SPATIAL AUDIO</th>
+                        <th className='text-right'>ACTIONS</th>
+                    </tr>
+                </thead>
+                <tbody
+                    className='[&>tr]:h-15 [&>tr]:border-b [&>tr]:border-[#e9edf3]'>
+                    {offers?.map(offer => (<tr key={offer.id} className='[&>td]:px-4 md:[&>td]:px-8'>
+                        <td className='font-bold max-w-[200px] truncate'>{offer.name}</td>
+                        <td className='font-bold'>{offer.price} {offer.price_currency}</td>
+                        <td className='flex pt-4.5'><p className='px-3 rounded-full text-sm md:text-base'
+                            style={{
+                                color: getQualityCol(offer.quality),
+                                backgroundColor: `${getQualityCol(offer.quality)}30`
+                            }}
+                        >{offer.quality}</p></td>
+                        <td className="text-[#5f758d]">{offer.resolution}</td>
+                        <td className='text-center md:text-left px-4 md:px-8'>
+                            {getVerification(offer.have_spatial_audio === 1)}
+                        </td>
+                        <td className='text-right'>
+                            <ActionButton icon='edit' className='mr-2 text-(--primary-col)' onClick={() => navigate(`${offer.id}/edit`)} />
+                            <ActionButton icon='delete' className='text-(--secondary-col)' onClick={() => {
+                                setDeleteDialog(true)
+                                setSelectedOffer(offer.id)
+                            }} />
+                        </td>
+                    </tr>))}
+                </tbody>
+            </table>
+        </div>
         {deleteDialog ? <Dialog icon='warning' iconColor='#dc2727' title='Delete Offer' confirmColor='bg-red-700' show={true}
             cancelText='Cancel' confirmText={loading ? (<LoadingProcess size={20} borderSize={4} />) : 'Confirm Delete'}
             content='Are you sure you want to delete this offer? This action cannot be undone.'

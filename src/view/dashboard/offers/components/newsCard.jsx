@@ -1,20 +1,19 @@
 export default function NewsCard({ name, content }) {
     return (
-        <div
-            className={`bg-white border border-[#f0f2f5] rounded-2xl p-6 shadow ${getShadowCol(name)} hover:shadow-xl transition-shadow duration-150`}>
-            <div
-                className='flex justify-between text-3xl'>
-                <b>
-                    {content}
-                </b>
-                <span
-                    className={`material-symbols-outlined ${getBgCol(name)} px-2 py-4 rounded-xl ${getTextCol(name)}`}>
+        <div className={`bg-white border border-[#f0f2f5] rounded-2xl p-4 md:p-6 shadow ${getShadowCol(name)} hover:shadow-xl transition-shadow duration-150`}>
+            <div className='flex justify-between items-center'>
+                <div>
+                    <p className='text-2xl md:text-3xl font-semibold'>
+                        {content}
+                    </p>
+                    <p className='text-sm md:text-base text-[#5e758d] mt-1'>
+                        {name}
+                    </p>
+                </div>
+                <span className={`material-symbols-outlined ${getBgCol(name)} p-2 md:p-3 rounded-xl ${getTextCol(name)} text-lg md:text-2xl`}>
                     {getIcon(name)}
                 </span>
             </div>
-            <p className='text-[#5e758d]'>
-                {name}
-            </p>
         </div>
     )
 }

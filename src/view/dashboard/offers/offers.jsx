@@ -5,6 +5,8 @@ import OffersProvider, { OffersContext } from "../../../context/offersContext";
 import { useContext } from "react";
 import { redirect, useNavigate } from "react-router-dom";
 import reqres from "../../../utils/reqres";
+import DrawerBtn from "../../components/drawerBtn";
+import { showSideBar } from "../../../utils/sideBarController";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export async function offersInit() {
@@ -15,31 +17,31 @@ export async function offersInit() {
 
 export default function Offers() {
     const navigate = useNavigate()
-    return (<div className='p-10'>
-        <header
-            className='flex justify-between items-end'>
-            <div>
-                <b
-                    className='text-3xl tracking-tight text-[#101418]'>
-                    Offers Management
-                </b>
-                <p
-                    className='mt-1 text-[#5e758d]'>
-                    Manage digital product listings, prices, and stock levels.
-                </p>
+    return (<div className='p-4 sm:p-6 md:p-8 lg:p-10 w-full max-w-7xl mx-auto'>
+        <header className='flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4'>
+            <div className='flex items-center gap-4'>
+                <DrawerBtn onClick={showSideBar} />
+                <div>
+                    <h1 className='text-xl sm:text-2xl md:text-3xl tracking-tight text-[#101418] font-bold'>
+                        Offers Management
+                    </h1>
+                    <p className='mt-1 text-xs sm:text-sm md:text-base text-[#5e758d]'>
+                        Manage digital product listings, prices, and stock levels.
+                    </p>
+                </div>
             </div>
             <button
                 onClick={() => navigate('create')}
-                className='text-white bg-(--primary-col) font-bold flex items-center rounded-lg h-10 px-3 shadow'>
-                <span className="material-symbols-outlined">
+                className='text-white bg-(--primary-col) font-bold flex items-center justify-center rounded-lg h-10 px-3 sm:px-4 gap-2 shadow max-w-40'>
+                <span className="material-symbols-outlined text-lg">
                     add
                 </span>
-                Create New
+                <span>Create New</span>
             </button>
         </header>
         <OffersProvider>
             <NewsSection />
-            <section className='mt-10 bg-white shadow border-[#f0f2f5] border h-145 rounded-lg py-6'>
+            <section className='mt-6 sm:mt-10 bg-white shadow border-[#f0f2f5] border rounded-lg py-4 md:py-6'>
                 <div
                     className='px-6 mb-6 flex justify-between'>
                     <SearchInput />
@@ -64,7 +66,7 @@ export default function Offers() {
 function NewsSection() {
     const { offers, bestSeller, offersWithAudio, offerWith4k } = useContext(OffersContext)
     return (<section
-        className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-10 gap-10'>
+        className='grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-5 md:mt-10 gap-5 md:gap-10'>
         <NewsCard name='Offers In Stock' content={offers.length} />
         <NewsCard name='Best Seller' content={bestSeller.name} />
         <NewsCard name='Offers with Spatial Audio' content={offersWithAudio.length} />
