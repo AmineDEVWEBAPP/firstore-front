@@ -2,6 +2,7 @@ import { redirect, useLoaderData } from "react-router-dom";
 import UserForm from "../components/userForm";
 import reqres from "../../../../utils/reqres";
 import BackBtn from "../../../components/backBtn";
+import { Helmet } from "react-helmet-async";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export async function initEditUser(data) {
@@ -12,8 +13,13 @@ export async function initEditUser(data) {
 }
 export default function EditUser() {
     const user = useLoaderData()['user']
+
+
     return (
         <div className='p-4 sm:p-6 md:p-8 lg:p-10'>
+            <Helmet>
+                <title>Create User</title>
+            </Helmet>
             <header className='flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4'>
                 <div className='flex items-center gap-4'>
                     <BackBtn />

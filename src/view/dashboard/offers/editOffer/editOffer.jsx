@@ -2,6 +2,7 @@ import { redirect, useLoaderData } from "react-router-dom"
 import OfferForm from "../components/offerForm";
 import reqres from "../../../../utils/reqres";
 import BackBtn from "../../../components/backBtn";
+import { Helmet } from "react-helmet-async";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export async function initEditOffer({ params }) {
@@ -15,6 +16,9 @@ export default function EditOffer() {
     const { offer, id } = useLoaderData()
 
     return (<div className='p-4 sm:p-6 md:p-8 lg:p-10'>
+        <Helmet>
+            <title>Edit Offer</title>
+        </Helmet>
         <div
             className='flex items-center gap-2'>
             <BackBtn />

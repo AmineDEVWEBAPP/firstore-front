@@ -6,6 +6,7 @@ import reqres from "../../../utils/reqres.js"
 import { redirect } from "react-router-dom"
 import { showSideBar } from "../../../utils/sideBarController.js"
 import DrawerBtn from "../../components/drawerBtn.jsx"
+import { Helmet } from "react-helmet-async"
 
 // eslint-disable-next-line react-refresh/only-export-components
 export async function initAccounts() {
@@ -20,6 +21,9 @@ export default function Accounts() {
 
     return (
         <div className='p-4 sm:p-6 md:p-8 lg:p-10 w-full max-w-7xl mx-auto'>
+            <Helmet>
+                <title>Manage accounts</title>
+            </Helmet>
             <header className='flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4'>
                 <div className='flex items-center gap-4'>
                     <DrawerBtn onClick={showSideBar} />

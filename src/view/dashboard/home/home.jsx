@@ -4,6 +4,7 @@ import NewsCard from "./components/newsCard/newsCard";
 import reqres from "../../../utils/reqres";
 import DrawerBtn from '../../components/drawerBtn'
 import { showSideBar } from "../../../utils/sideBarController";
+import { Helmet } from "react-helmet-async";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export async function dashboardHomeinit() {
@@ -27,6 +28,9 @@ export default function DashboardHome() {
     const { admin } = useOutletContext()
     return (
         <div className='flex flex-col p-4 sm:p-6 md:p-8 lg:p-10 w-full max-w-7xl mx-auto'>
+            <Helmet>
+                <title>Home Dashboard</title>
+            </Helmet>
             <header className='flex items-center gap-4'>
                 <DrawerBtn onClick={showSideBar} />
                 <div>
