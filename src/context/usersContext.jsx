@@ -23,8 +23,8 @@ export function UsersProvider({ children }) {
     }, [users])
 
     return (
-        <UsersContext value={{ users, setUsers, news }}>
+        <UsersContext.Provider value={{ users, setUsers, news }}>
             {children}
-        </UsersContext>
+        </UsersContext.Provider>
     )
 }

@@ -14,7 +14,6 @@ import CreateUser, { initCreateUser } from './view/dashboard/users/createUser/cr
 import EditOffer, { initEditOffer } from './view/dashboard/offers/editOffer/editOffer.jsx'
 import EditUser, { initEditUser } from './view/dashboard/users/editUser/editUser.jsx'
 import Landing, { initLanding } from './view/landing/landing.jsx'
-import { HelmetProvider } from 'react-helmet-async'
 import NotFound from './view/notFound.jsx'
 
 const routes = createBrowserRouter(
@@ -43,8 +42,6 @@ const routes = createBrowserRouter(
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <HelmetProvider>
       <RouterProvider router={routes} />
-    </HelmetProvider>
   </StrictMode>
 )

@@ -7,7 +7,9 @@ export const ProfilesContext = createContext()
 export function ProfilesProvider({ children }) {
     const init = useLoaderData()['profiles']
     const [profiles, setProfiles] = useState(init)
-    return <ProfilesContext value={{ profiles, setProfiles }}>
-        {children}
-    </ProfilesContext>
+    return (
+        <ProfilesContext.Provider value={{ profiles, setProfiles }}>
+            {children}
+        </ProfilesContext.Provider>
+    )
 }

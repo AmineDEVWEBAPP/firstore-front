@@ -8,8 +8,8 @@ export function AccountsProvider({ children }) {
     const init = useLoaderData()['accounts']
     const [accounts, setAccounts] = useState(init)
     return (
-        <AccountsContext value={{ accounts, setAccounts }}>
+        <AccountsContext.Provider value={{ accounts, setAccounts }}>
             {children}
-        </AccountsContext>
+        </AccountsContext.Provider>
     )
 }

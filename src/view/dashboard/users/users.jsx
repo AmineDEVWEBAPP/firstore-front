@@ -6,7 +6,6 @@ import { redirect, useNavigate } from "react-router-dom";
 import reqres from "../../../utils/reqres";
 import { showSideBar } from "../../../utils/sideBarController";
 import DrawerBtn from "../../components/drawerBtn";
-import { Helmet } from "react-helmet-async";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export async function initUsers() {
@@ -20,9 +19,7 @@ export default function Users() {
     const navigate = useNavigate()
 
     return (<UsersProvider>
-        <Helmet>
-            <title>Manage users</title>
-        </Helmet>
+        <title>Manage users</title>
         <div className='px-4 sm:px-6 md:px-10 pt-6 sm:pt-10 bg-[#f8fbff] pb-6 sm:pb-7 border-b-2 border-[#e4e4e4]'>
             <header className='flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4'>
                 <div className='flex items-center gap-4'>

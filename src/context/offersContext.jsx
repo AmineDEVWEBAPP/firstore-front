@@ -27,9 +27,9 @@ export default function OffersProvider({ children }) {
         [offers]
     );
     return (
-        <OffersContext
-            value={{ offers, setOffers, bestSeller, offersWithAudio, offerWith4k }}
-        >{children}
-        </OffersContext>
+        <OffersContext.Provider
+            value={{ offers, setOffers, bestSeller, offersWithAudio, offerWith4k }}>
+            {children}
+        </OffersContext.Provider>
     )
 }

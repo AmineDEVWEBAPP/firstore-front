@@ -2,7 +2,6 @@ import { useActionState, useState } from "react"
 import TextField from "./components/textField/textField.jsx"
 import SubmitButton from "./components/submitButton/submitButton.jsx"
 import { redirect, useNavigate } from "react-router-dom"
-import { Helmet } from "react-helmet-async";
 import reqres from "../../../utils/reqres.js"
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -29,9 +28,7 @@ export default function DashboardLogin() {
 
     return (
         <div className='flex min-h-screen justify-center items-center px-4'>
-            <Helmet>
-                <title>admin login</title>
-            </Helmet>
+            <title>admin login</title>
             <div
                 className='p-6 sm:p-8 md:p-10 w-[92vw] sm:w-[76vw] md:w-[60vw] lg:w-[44vw] xl:w-[36vw] max-w-180 bg-white rounded-4xl flex flex-col items-center shadow-md md:shadow-lg hover:shadow-xl transition-shadow duration-200'>
                 <div

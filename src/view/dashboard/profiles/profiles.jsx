@@ -6,7 +6,6 @@ import reqres from "../../../utils/reqres"
 import { redirect } from "react-router-dom"
 import { showSideBar } from "../../../utils/sideBarController"
 import DrawerBtn from "../../components/drawerBtn"
-import { Helmet } from "react-helmet-async"
 
 // eslint-disable-next-line react-refresh/only-export-components
 export async function initProfiles() {
@@ -20,9 +19,7 @@ export default function Profiles() {
     const [createDialog, setCreateDialog] = useState(false)
 
     return (<div className='p-4 sm:p-6 md:p-8 lg:p-10 w-full max-w-7xl mx-auto'>
-        <Helmet>
-            <title>Manage Profiles</title>
-        </Helmet>
+        <title>Manage Profiles</title>
         <header className='flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4'>
             <div className='flex items-center gap-4'>
                 <DrawerBtn onClick={showSideBar} />

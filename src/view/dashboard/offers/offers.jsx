@@ -7,7 +7,6 @@ import { redirect, useNavigate } from "react-router-dom";
 import reqres from "../../../utils/reqres";
 import DrawerBtn from "../../components/drawerBtn";
 import { showSideBar } from "../../../utils/sideBarController";
-import { Helmet } from "react-helmet-async";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export async function offersInit() {
@@ -20,9 +19,7 @@ export default function Offers() {
     const navigate = useNavigate()
 
     return (<div className='p-4 sm:p-6 md:p-8 lg:p-10 w-full max-w-7xl mx-auto'>
-        <Helmet>
-            <title>Manage Offers</title>
-        </Helmet>
+        <title>Manage Offers</title>
         <header className='flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4'>
             <div className='flex items-center gap-4'>
                 <DrawerBtn onClick={showSideBar} />

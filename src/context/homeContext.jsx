@@ -9,9 +9,9 @@ export function HomeProvider({ children }) {
     const [selectedOffer, setSelectedOffer] = useState(offers.filter(offer => offer.most_popular === 1)[0] || offers[0])
 
     return (
-        <HomeContext
+        <HomeContext.Provider
             value={{ offers, selectedOffer, setSelectedOffer }}>
             {children}
-        </HomeContext>
+        </HomeContext.Provider>
     )
 }

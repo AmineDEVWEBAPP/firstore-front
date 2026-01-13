@@ -6,20 +6,18 @@ import DisktopBody from "./components/disktopBody";
 import Logo from "../components/logo";
 import PhoneBody from "./components/phoneBody";
 import { useContext } from "react";
-import { Helmet } from "react-helmet-async";
 import reqres from "../../utils/reqres";
 import { redirect } from "react-router-dom";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export async function initLanding() {
-    const offers = await reqres('offers','GET')
-    if(offers['status']==='failed')throw redirect('/notfound')
+    const offers = await reqres('offers', 'GET')
+    if (offers['status'] === 'failed') throw redirect('/notfound')
     return { offers }
 }
 
 export default function Landing() {
     return (<HomeProvider>
-        <Helmet>
             <title>Buy Netflix Premium Accounts | HD & 4K Streaming</title>
             <meta name="author" content="Amine khadir" />
             <meta
@@ -30,7 +28,6 @@ export default function Landing() {
                 name="keywords"
                 content="Netflix account, Netflix Premium, buy Netflix, Netflix subscription, Netflix HD, Netflix 4K, Netflix profiles, streaming accounts"
             />
-        </Helmet>
         <div
             className='min-h-full'>
             <header

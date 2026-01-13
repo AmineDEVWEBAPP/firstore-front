@@ -1,4 +1,3 @@
-import { Helmet } from "react-helmet-async"
 import { useNavigate } from "react-router-dom"
 
 
@@ -8,13 +7,11 @@ export default function NotFound() {
     return (
         <div
             className='flex flex-col items-center justify-between h-full text-center py-10 sm:py-30'>
-            <Helmet>
                 <title>404 – Page Not Found</title>
                 <meta
                     name="description"
                     content="The page you are looking for does not exist or has been moved."
                 />
-            </Helmet>
             <span
                 style={{
                     'fontSize': '200px'

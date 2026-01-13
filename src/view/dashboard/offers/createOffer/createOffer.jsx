@@ -1,12 +1,9 @@
 import OfferForm from "../components/offerForm";
 import BackBtn from '../../../components/backBtn'
-import { Helmet } from "react-helmet-async";
 
 export default function CreateOffer() {
     return (<div className='p-4 sm:p-6 md:p-8 lg:p-10'>
-        <Helmet>
-            <title>Create Offer</title>
-        </Helmet>
+        <title>Create Offer</title>
         <div
             className='flex items-center gap-2'>
             <BackBtn />
