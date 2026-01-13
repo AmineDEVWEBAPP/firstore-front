@@ -1,6 +1,7 @@
 import { Helmet } from "react-helmet-async"
 import { useNavigate } from "react-router-dom"
 
+
 export default function NotFound() {
     const navigate = useNavigate()
 
@@ -35,7 +36,7 @@ export default function NotFound() {
                 moved to a new location or no longer exits.let's get you back on track.
             </p>
             <button
-                onClick={() => navigate('/', { replace: true })}
+                onClick={async () => navigate('/', { replace: true })}
                 className='rounded-md shadow bg-(--primary-col) font-bold text-white py-2 px-4 md:text-lg'>
                 Return Home
             </button>

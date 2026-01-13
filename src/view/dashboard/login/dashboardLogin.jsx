@@ -34,9 +34,6 @@ export default function DashboardLogin() {
             </Helmet>
             <div
                 className='p-6 sm:p-8 md:p-10 w-[92vw] sm:w-[76vw] md:w-[60vw] lg:w-[44vw] xl:w-[36vw] max-w-180 bg-white rounded-4xl flex flex-col items-center shadow-md md:shadow-lg hover:shadow-xl transition-shadow duration-200'>
-                <div>
-                    {resStatus}
-                </div>
                 <div
                     className='rounded-full flex justify-center items-center bg-orange-200 p-3'>
                     <span className="material-symbols-outlined text-(--secondary-col)">lock</span>
@@ -46,7 +43,7 @@ export default function DashboardLogin() {
                     action={formAction}
                     className='flex flex-col mt-5 w-full text-[12px] md:text-[14px]'>
                     <label htmlFor='admin-login-email-input' className='mb-1 text-sm md:text-base'>Email Address</label>
-                    <TextField type='email' />
+                    <TextField type='email' defaultValue='demo@gmail.com' />
                     <div
                         className='mb-1 mt-5 flex items-center justify-between'>
                         <label htmlFor='admin-login-password-input' className='text-sm md:text-base'>Password</label>
@@ -55,8 +52,8 @@ export default function DashboardLogin() {
                             href='#'
                         >Forgot Password?</a>
                     </div>
-                    <TextField type='password' />
-                    {resStatus === 'failed' ? <p className='text-red-500'>failed login</p> : null}
+                    <TextField type='password' defaultValue='demoAdminPassword' />
+                    {resStatus === 'Failed' ? <p className='text-red-500'>failed login</p> : null}
                     <SubmitButton isLoading={isPending} />
                 </form>
             </div>

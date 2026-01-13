@@ -1,7 +1,7 @@
 import { useState } from "react";
 import './style.css'
 
-export default function TextField({ type }) {
+export default function TextField({ type, defaultValue }) {
     const [isVisible, setState] = useState(false)
 
     const isEmail = type === 'email';
@@ -22,6 +22,7 @@ export default function TextField({ type }) {
                 name={type}
                 placeholder={placeholder}
                 required
+                defaultValue={defaultValue}
             />
             {!isEmail ? (<PasswordIcon
                 onClick={() => setState(!isVisible)}
